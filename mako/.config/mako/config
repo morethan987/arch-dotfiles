@@ -1,0 +1,81 @@
+## 全局配置 (Global Options)
+# 排序方式：按时间倒序（最新的在最上面）
+sort=-time
+
+# 最大可见通知数
+max-visible=3
+
+# 显示层级：overlay 确保它能显示在全屏视频上方
+layer=overlay
+
+# 位置：右上角
+anchor=top-right
+
+## 样式配置 (Style Options)
+
+# 弹窗尺寸
+width=300
+height=150
+margin=10
+padding=15
+border-size=2
+border-radius=7
+
+# 图标设置
+icons=1
+max-icon-size=48
+# 图标位置：文本左侧
+icon-location=left
+
+# 默认标记语言支持
+markup=1
+
+# 默认操作行为
+# 左键点击：执行默认动作（如打开链接或应用）
+on-button-left=invoke-default-action
+# 中键点击：无（防止误触）
+on-button-middle=none
+# 右键点击：关闭当前通知
+on-button-right=dismiss
+# 触摸：关闭
+on-touch=dismiss
+
+# 默认超时时间 (毫秒)：3秒后自动消失
+default-timeout=3000
+
+## 颜色配色 (Dracula Theme Colors)
+# 背景色：Dracula Dark (#282a36)
+background-color=#282a36dd
+# 文本颜色：Dracula Foreground (#f8f8f2)
+text-color=#f8f8f2
+# 边框颜色：Dracula Purple (#bd93f9) - 核心识别色
+border-color=#bd93f9
+
+# 进度条颜色：Dracula Green (#50fa7b)
+# 'over' 表示绘制在背景之上
+progress-color=over #50fa7b
+
+## 优先级匹配规则 (Criteria)
+
+# 低优先级通知 (Low Urgency)
+# 使用稍暗的边框颜色 (#6272a4 - Dracula Comment)
+[urgency=low]
+border-color=#6272a4
+default-timeout=2000
+
+# 普通优先级通知 (Normal Urgency)
+# 保持默认配置
+[urgency=normal]
+border-color=#bd93f9
+
+# 关键优先级通知 (Critical Urgency)
+# 使用红色边框 (#ff5555 - Dracula Red)
+# 并且永不自动消失 (0)，直到手动关闭
+[urgency=critical]
+border-color=#ff5555
+default-timeout=0
+
+# 分组通知 (Grouped)
+# 当通知被折叠时的样式
+[grouped]
+format=(%g) <b>%s</b>\n%b
