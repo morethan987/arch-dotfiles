@@ -1,0 +1,27 @@
+theme = "dracula_at_night"
+
+[keys.normal]
+# H/L 跳到行首/行尾
+A-j = "page_cursor_half_down"
+A-k = "page_cursor_half_up"
+C-a = "select_all"
+"H" = "goto_line_start"
+"L" = "goto_line_end"
+";" = "command_mode"
+
+[keys.insert]
+j = { j = "normal_mode" }
+
+[editor]
+bufferline = "multiple"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.cursor-shape]
+insert = "bar"
+
+# [editor.indent-guides]
+# render = true
+# character = "╎" # Some characters that work well: "▏", "┆", "┊", "⸽"
+# skip-levels = 1

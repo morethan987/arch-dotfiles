@@ -1,0 +1,48 @@
+/* dracula */
+
+@define-color background		#282a36;
+@define-color current-line	#44475a;
+@define-color foreground		#f8f8f2;
+@define-color comment		#6272a4;
+@define-color cyan			#8be9fd;
+@define-color green			#50fa7b;
+@define-color orange		#ffb86c;
+@define-color pink			#ff79c6;
+@define-color purple		#bd93f9;
+@define-color red			#ff5555;
+@define-color yellow		#f1fa8c;
+
+/*
+	br - border
+	bg - background
+	fg - foreground
+*/
+
+/* main colors */
+
+@define-color accent		@purple;
+@define-color main-br		@comment;
+@define-color main-bg		@background;
+@define-color main-fg		@foreground;
+@define-color hover-bg		@current-line;
+@define-color hover-fg		alpha(@main-fg, 0.75);
+@define-color outline		shade(@main-bg, 0.5);
+
+/* module colors */
+
+@define-color workspaces	@current-line;
+@define-color temperature	@current-line;
+@define-color memory		@background;
+@define-color cpu			@current-line;
+@define-color time			@current-line;
+@define-color date			@background;
+@define-color tray			@current-line;
+@define-color volume		@current-line;
+@define-color backlight		@background;
+@define-color battery		@current-line;
+
+/* state colors */
+
+@define-color warning		@orange;
+@define-color critical		@red;
+@define-color charging		@green;

@@ -1,0 +1,244 @@
+# ========================================================
+# WatchDog (wd) 进程监控函数
+# ========================================================
+wd() {
+    # ================= 配置区域 =================
+    # 建议填入你的 Key，这样平时不用每次都指定 -k
+    local DEFAULT_KEY="SCT305487TRpLglaDSyhL409kKeNZe4qWH"
+    local VERSION="1.2.1" # 版本号微升
+    
+    # ================= 颜色定义 =================
+    local GREEN="\033[1;32m"
+    local RED="\033[1;31m"
+    local BLUE="\033[1;34m"
+    local YELLOW="\033[1;33m"
+    local CYAN="\033[1;36m"
+    local GREY="\033[0;37m"
+    local RESET="\033[0m"
+
+    # ================= 变量初始化 =================
+    local SENDKEY="$DEFAULT_KEY"
+    local TASK_NAME="未命名任务"
+    local LOG_FILE="watchdog.log"
+    local DAEMON_MODE=false
+    local CMD_STR=""
+
+    # ================= 参数解析 =================
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -k|--key)
+                SENDKEY="$2"
+                shift 2
+                ;;
+            -n|--name)
+                TASK_NAME="$2"
+                shift 2
+                ;;
+            -l|--log)
+                LOG_FILE="$2"
+                shift 2
+                ;;
+            -d|--daemon)
+                DAEMON_MODE=true
+                shift
+                ;;
+            -h|--help)
+                echo -e "${BLUE}🐕 WatchDog (wd) v$VERSION${RESET} - 任务监控与通知工具"
+                echo
+                echo -e "${YELLOW}用法:${RESET}"
+                echo -e "  wd [选项] -- \"要执行的命令\""
+                echo
+                echo -e "${YELLOW}选项:${RESET}"
+                echo -e "  ${GREEN}-n, --name${RESET} <name>    设置任务名称 (显示在通知标题)"
+                echo -e "  ${GREEN}-l, --log${RESET}  <file>    设置日志文件 (默认: watchdog.log)"
+                echo -e "  ${GREEN}-d, --daemon${RESET}         后台模式 (nohup运行，推荐耗时任务使用)"
+                echo -e "  ${GREEN}-k, --key${RESET} <key>      指定 Server酱 SendKey"
+                echo -e "  ${GREEN}-h, --help${RESET}           显示本帮助"
+                echo
+                echo -e "${YELLOW}示例:${RESET}"
+                echo -e "  wd -n \"模型训练\" -d -- \"python train.py --epochs 100\""
+                echo -e "  wd -n \"下载任务\" -- \"wget http://example.com/bigfile.zip\""
+                return 0
+                ;;
+            --)
+                shift
+                CMD_STR="$*"
+                break
+                ;;
+            *)
+                echo -e "${RED}❌ 错误: 未知参数 $1${RESET}"
+                echo "请尝试使用 wd -h 查看帮助"
+                return 1
+                ;;
+        esac
+    done
+
+    # 检查命令
+    if [ -z "$CMD_STR" ]; then
+        echo -e "${RED}❌ 错误: 未指定要执行的命令${RESET}"
+        echo -e "用法示例: wd -n \"测试\" -- \"sleep 5\""
+        return 1
+    fi
+
+    # 检查 Key 是否配置
+    if [[ "$SENDKEY" == "xxx" || -z "$SENDKEY" ]]; then
+         echo -e "${YELLOW}⚠️  警告: 未配置 SendKey，任务结束后将无法发送通知。${RESET}"
+    fi
+
+    # ================= 后台模式 (Daemon) =================
+    if [ "$DAEMON_MODE" = true ]; then
+        echo -e "${GREEN}🚀 后台模式已启动${RESET}"
+        echo -e "📝 日志文件: ${CYAN}$LOG_FILE${RESET}"
+        echo -e "📋 任务名称: ${TASK_NAME}"
+        
+        # 使用 nohup 在后台运行
+        nohup bash -c '
+            TASK_NAME="'"$TASK_NAME"'"
+            CMD_STR="'"$CMD_STR"'"
+            SENDKEY="'"$SENDKEY"'"
+            
+            START_TIME=$(date +%s)
+            START_DATE=$(date "+%Y-%m-%d %H:%M:%S")
+            
+            echo "========================================"
+            echo "🐕 任务启动: $TASK_NAME"
+            echo "💻 执行命令: $CMD_STR"
+            echo "⏱️ 启动时间: $START_DATE"
+            echo "========================================"
+            echo
+            
+            # 执行命令
+            eval "$CMD_STR"
+            EXIT_CODE=$?
+            
+            END_TIME=$(date +%s)
+            DURATION=$((END_TIME - START_TIME))
+            END_DATE=$(date "+%Y-%m-%d %H:%M:%S")
+            
+            echo
+            echo "========================================"
+            echo "🏁 任务结束"
+            echo "📊 退出代码: $EXIT_CODE"
+            echo "⌛ 耗时统计: ${DURATION}秒"
+            echo "📅 结束时间: $END_DATE"
+            echo "========================================"
+            
+            # 准备通知内容
+            if [ "$EXIT_CODE" -eq 0 ]; then
+                TITLE="✅ 任务成功: $TASK_NAME"
+                STATUS_EMOJI="✅"
+                STATUS_TEXT="成功"
+            else
+                TITLE="❌ 任务失败: $TASK_NAME"
+                STATUS_EMOJI="❌"
+                STATUS_TEXT="失败 (Exit $EXIT_CODE)"
+            fi
+            
+            DESP="**任务名称**: $TASK_NAME
+**运行状态**: $STATUS_EMOJI $STATUS_TEXT
+**运行时长**: ${DURATION}秒
+**结束时间**: $END_DATE
+**执行命令**: 
+\`\`\`bash
+$CMD_STR
+\`\`\`"
+            
+            echo "📤 正在发送通知..."
+            
+            # --- 优化重点：捕获输出与错误 ---
+            # -s: 进度条静默
+            # -S: 如果发生错误(如DNS失败)显示错误信息
+            # 2>&1: 将错误输出合并到标准输出，以便 RESULT 变量捕获所有信息
+            
+            RESULT=$(curl -s -S --noproxy "*" --max-time 15 \
+                "https://sctapi.ftqq.com/${SENDKEY}.send" \
+                --data-urlencode "title=${TITLE}" \
+                --data-urlencode "desp=${DESP}" 2>&1)
+            
+            CURL_EXIT=$?
+            
+            if [ $CURL_EXIT -eq 0 ]; then
+                # 即使 curl 返回 0，API 也可能返回错误（比如 Wrong Key）
+                # Server酱成功通常包含 "errno":0 或 "code":0
+                if [[ "$RESULT" == *"errno\":0"* || "$RESULT" == *"code\":0"* ]]; then
+                    echo "✅ 通知已发送"
+                    echo "ℹ️  Server酱响应: $RESULT"
+                else
+                    echo "⚠️  请求发送成功，但API返回异常 (请检查Key):"
+                    echo "👉 响应内容: $RESULT"
+                fi
+            else
+                echo "❌ 通知发送失败 (Curl退出码: $CURL_EXIT)"
+                echo "👉 错误详情: $RESULT"
+            fi
+            # ---------------------------
+            
+        ' > "$LOG_FILE" 2>&1 &
+        
+        echo -e "🔢 进程 PID: ${YELLOW}$!${RESET}"
+        echo -e "👀 查看日志: ${GREY}tail -f $LOG_FILE${RESET}"
+
+    # ================= 前台模式 (Foreground) =================
+    else
+        local START_TIME=$(date +%s)
+        
+        echo -e "${BLUE}========================================${RESET}"
+        echo -e "🐕 ${GREEN}任务启动${RESET}: $TASK_NAME"
+        echo -e "💻 ${CYAN}执行命令${RESET}: $CMD_STR"
+        echo -e "⏱️ ${YELLOW}启动时间${RESET}: $(date '+%Y-%m-%d %H:%M:%S')"
+        echo -e "${BLUE}========================================${RESET}"
+        echo
+        
+        eval "$CMD_STR"
+        local EXIT_CODE=$?
+        
+        local END_TIME=$(date +%s)
+        local DURATION=$((END_TIME - START_TIME))
+        local END_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+        
+        echo
+        echo -e "${BLUE}========================================${RESET}"
+        if [ "$EXIT_CODE" -eq 0 ]; then
+             echo -e "🏁 ${GREEN}任务结束 (成功)${RESET}"
+        else
+             echo -e "🏁 ${RED}任务结束 (失败 - 代码 $EXIT_CODE)${RESET}"
+        fi
+        echo -e "⌛ ${YELLOW}耗时统计${RESET}: ${DURATION}s"
+        echo -e "${BLUE}========================================${RESET}"
+        
+        # 构造通知
+        if [ "$EXIT_CODE" -eq 0 ]; then
+            local TITLE="✅ 任务成功: $TASK_NAME"
+            local STATUS_TEXT="成功"
+            local STATUS_EMOJI="✅"
+        else
+            local TITLE="❌ 任务失败: $TASK_NAME"
+            local STATUS_TEXT="失败 (Exit $EXIT_CODE)"
+            local STATUS_EMOJI="❌"
+        fi
+        
+        local DESP="**任务名称**: $TASK_NAME
+**运行状态**: $STATUS_EMOJI $STATUS_TEXT
+**运行时长**: ${DURATION}秒
+**结束时间**: $END_DATE
+**执行命令**: 
+\`\`\`bash
+$CMD_STR
+\`\`\`"
+
+        # 前台模式发送逻辑保持简洁，但也加上 --noproxy
+        echo -e "\n📤 正在发送通知..."
+        curl -s --noproxy "*" --max-time 15 -o /dev/null -w "%{http_code}" \
+            "https://sctapi.ftqq.com/${SENDKEY}.send" \
+            --data-urlencode "title=${TITLE}" \
+            --data-urlencode "desp=${DESP}" | grep -q "200"
+            
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}✅ 通知发送成功!${RESET}"
+        else
+            echo -e "${RED}❌ 通知发送失败，请检查网络或Key。${RESET}"
+        fi
+        
+        return $EXIT_CODE
+    fi
+}

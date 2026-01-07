@@ -1,0 +1,34 @@
+#compdef ws
+
+# --- ws 命令补全函数 ---
+# 支持的子命令: start, stop, status
+# 并为 start/stop 提供简单提示
+_ws() {
+  local -a subcmds
+
+  subcmds=(
+    'start:启动 windsend 服务'
+    'stop:停止 windsend 服务'
+    'status:查看 windsend 状态'
+  )
+
+  # 如果当前是第一个参数（即 ws <TAB>）
+  if (( CURRENT == 2 )); then
+    _describe 'subcommand' subcmds
+    return
+  fi
+
+  # 根据不同子命令提供后续参数补全（如果将来扩展的话）
+  case $words[2] in
+    start)
+      # 可添加配置文件、调试模式等参数补全
+      ;;
+    stop)
+      ;;
+    status)
+      ;;
+  esac
+}
+
+_ws "$@"
+

@@ -1,0 +1,114 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "language_models": {
+    "openai_compatible": {
+      "Qwen3Coder": {
+        "api_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "available_models": [
+          {
+            "name": "qwen3-coder-plus",
+            "display_name": null,
+            "max_tokens": 1000000,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 65536,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          },
+          {
+            "name": "qwen3-coder-flash",
+            "display_name": null,
+            "max_tokens": 1000000,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 65536,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false
+            }
+          }
+        ]
+      }
+    }
+  },
+
+  // basic config
+  "auto_update": false,
+  "agent": {
+    "default_model": {
+      "provider": "deepseek",
+      "model": "deepseek-chat"
+    },
+    "default_profile": "minimal"
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "icon_theme": "Catppuccin Latte",
+  "ui_font_size": 17,
+  "buffer_font_size": 15,
+  "agent_font_size": 17,
+  "buffer_font_family": "Maple Mono NF CN",
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "Catppuccin Mocha"
+  },
+  "autosave": "on_focus_change",
+  "close_on_file_delete": true,
+  "hide_mouse": "on_typing",
+
+  // debugger
+  "inlay_hints": { "show_value_hints": false },
+
+  //vim
+  "vim_mode": true,
+
+  // remote dev
+  "ssh_connections": [
+    {
+      "host": "huaweicloud-910b-8",
+      "projects": [
+        {
+          "paths": ["/home/ma-user/work/moran/KoGReD"]
+        },
+        {
+          "paths": ["/home/ma-user/work/moran/KoPA"]
+        }
+      ]
+    },
+    {
+      "host": "A6000",
+      "projects": [
+        {
+          "paths": ["/data/yitingting/code"]
+        },
+        {
+          "paths": ["/data/yitingting/moran/KoGReD"]
+        }
+      ]
+    }
+  ],
+
+  // language server
+  "languages": {
+    "C++": {
+      "show_edit_predictions": false
+    },
+    "Python": {
+      "language_servers": ["pylsp", "!pyright"],
+      "preferred_line_length": 100
+    }
+  }
+}

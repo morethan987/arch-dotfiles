@@ -1,0 +1,35 @@
+# helix
+alias hx='helix'
+
+# rime
+alias cdrime='cd ~/.local/share/fcitx5/rime'
+
+# ssh-reverse-proxy
+alias sshproxy='sudo systemctl start ssh-reverse-proxy@spark.service'
+alias sshproxystatus='sudo systemctl status ssh-reverse-proxy@spark.service'
+alias sshproxystop='sudo systemctl stop ssh-reverse-proxy@spark.service'
+
+# grep
+alias grep='grep --color=auto'
+
+# system
+alias seeu='systemctl poweroff'
+alias again='systemctl reboot'
+alias scu='systemctl --user'
+alias sc='sudo systemctl'
+
+# ls
+alias ls='ls --color=auto'
+alias ll='ls -ahlF'
+alias la='ls -A'
+alias l='ls -CF'
+
+
+# suffix aliases
+alias -s mp4='mpv'
+alias -s json='helix'
+alias -s md='helix'
+alias -s pdf='papers'
+alias -s png='gthumb'
+alias -s jpg='gthumb'
+alias -s svg='gthumb'

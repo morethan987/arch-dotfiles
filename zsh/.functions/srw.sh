@@ -1,0 +1,73 @@
+# wl-screenrec 录屏函数
+# 用法：srw [码率MB]
+# 示例：
+# 1. 使用默认 5 MB/s 码率（约 40 Mbps）：srw
+# 2. 使用 10 MB/s 码率（约 80 Mbps）：srw 10
+# 3. 使用 2 MB/s 码率（约 16 Mbps）：srw 2
+srw() {
+    # 帮助信息
+    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+        cat <<EOF
+Usage: srw [bitrate_MBps]
+
+Screen recording helper based on wl-screenrec.
+
+Arguments:
+  bitrate_MBps    Optional. Target bitrate in MB/s (default: 5 MB/s)
+  -h, --help      Show this help message
+
+Examples:
+  srw          # Start recording with default 5 MB/s bitrate
+  srw 10       # Start recording with 10 MB/s bitrate
+EOF
+        return 0
+    fi
+
+    # 默认码率（MB/s）
+    local BITRATE_MBS="5"
+
+    # 如果提供了参数且是纯数字，则覆盖码率
+    if [[ -n "$1" && "$1" =~ ^[0-9]+$ ]]; then
+        BITRATE_MBS="$1"
+    fi
+
+    # wl-screenrec 需要的格式：如 "10 MB"
+    local BITRATE_STR="${BITRATE_MBS} MB"
+
+    # 输出目录与文件
+    local OUTPUT_DIR="$HOME/Videos"
+    local FILENAME="wl-screenrec_$(date +%Y%m%d_%H%M%S).mp4"
+    local OUTPUT_PATH="$OUTPUT_DIR/$FILENAME"
+
+    mkdir -p "$OUTPUT_DIR"
+
+    echo "--- 启动 wl-screenrec ---"
+    echo "  >> 编码器: HEVC (H.265)"
+    echo "  >> 目标码率: ${BITRATE_STR}"
+    echo "  >> 输出文件: ${OUTPUT_PATH}"
+    echo "  >> 请用鼠标选择录制区域，按 Ctrl+C 停止录制。"
+    echo "--------------------------"
+
+    wl-screenrec \
+        --codec hevc \
+        --low-power=off \
+        --bitrate "${BITRATE_STR}" \
+        -g "$(slurp)" \
+        -f "${OUTPUT_PATH}"
+
+    if [[ $? -eq 0 ]]; then
+        # 获取视频大小
+        if [[ -f "$OUTPUT_PATH" ]]; then
+            local FILE_SIZE_BYTES
+            FILE_SIZE_BYTES=$(stat -c%s "$OUTPUT_PATH")
+            local FILE_SIZE_MB
+            FILE_SIZE_MB=$(awk "BEGIN {printf \"%.2f\", $FILE_SIZE_BYTES / (1024*1024)}")
+            echo "✅ 录制完成！文件已保存到: ${OUTPUT_PATH}"
+            echo "📏 视频大小: ${FILE_SIZE_MB} MB"
+        else
+            echo "⚠️ 录制结束，但未找到输出文件。"
+        fi
+    else
+        echo "❌ 录制失败或被中断！"
+    fi
+}

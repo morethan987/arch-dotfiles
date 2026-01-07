@@ -1,0 +1,21 @@
+# rsync的封装壳，简化使用方式
+rs() {
+  if [ "$#" -lt 2 ]; then
+    echo "rsync封装壳，简化使用"
+    echo "带有压缩+断点续传"
+    echo "Usage: rs <src> <dst> [--delete]"
+    return 1
+  fi
+
+  local SRC="$1"
+  local DST="$2"
+  shift 2
+
+  rsync -avz \
+    --partial \
+    --progress \
+    --human-readable \
+    "$@" \
+    "$SRC" \
+    "$DST"
+}

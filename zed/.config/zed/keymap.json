@@ -1,0 +1,88 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  // vim
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": "vim::NormalBefore",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "L": "editor::SelectToEndOfLine",
+      "H": "editor::SelectToBeginningOfLine",
+      "K": ["editor::SelectUpByLines", { "lines": 13 }],
+      "J": ["editor::SelectDownByLines", { "lines": 13 }],
+      ";": "command_palette::Toggle",
+      "shift-tab": "editor::Backtab",
+      "shift-s": "vim::PushAddSurrounds",
+      "tab": "editor::Tab",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      ";": "command_palette::Toggle",
+      "L": "editor::MoveToEndOfLine",
+      "H": "editor::MoveToBeginningOfLine",
+      "J": ["editor::MoveDownByLines", { "lines": 13 }],
+      "K": ["editor::MoveUpByLines", { "lines": 13 }],
+      "shift-tab": "editor::Backtab",
+      "tab": "editor::Tab",
+      "g b": "pane::GoBack",
+    },
+  },
+  //helix
+  {
+    "context": "Editor && vim_mode == helix_normal",
+    "bindings": {
+      ";": "command_palette::Toggle",
+      "L": "editor::MoveToEndOfLine",
+      "H": "editor::MoveToBeginningOfLine",
+      "alt-j": ["editor::MoveDownByLines", { "lines": 13 }],
+      "alt-k": ["editor::MoveUpByLines", { "lines": 13 }],
+      "ctrl-a": "editor::SelectAll",
+    },
+  },
+  // basic
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "alt-a": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction_conflict)",
+    "bindings": {
+      "alt-a": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "` `": "workspace::OpenInTerminal",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-c": [
+        "agent::NewExternalAgentThread",
+        { "agent": "claude_code" },
+      ],
+    },
+  },
+]

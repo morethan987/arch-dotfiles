@@ -1,0 +1,17 @@
+[window]
+opacity = 0.9
+
+[font]
+normal = { family="Maple Mono NF CN", style="Regular" }
+bold = { family="Maple Mono NF CN", style="bold" }
+italic = { family="Maple Mono NF CN", style="italic" }
+size = 13
+
+[terminal]
+shell = { program = "/bin/zsh", args = ["-l"] }
+osc52 = "OnlyCopy" # 远程终端与剪贴板交互控制
+
+[keyboard]
+bindings = [
+  { key = "N", mods = "Control", action = "CreateNewWindow"}
+]

@@ -1,0 +1,126 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "colorize_brackets": true,
+  "window_decorations": "client",
+  "tabs": {
+    "file_icons": true,
+    "git_status": false,
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_branch_icon": true,
+  },
+  "language_models": {
+    "openai_compatible": {
+      "Qwen3Coder": {
+        "api_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "available_models": [
+          {
+            "name": "qwen3-coder-plus",
+            "display_name": null,
+            "max_tokens": 1000000,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 65536,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false,
+            },
+          },
+          {
+            "name": "qwen3-coder-flash",
+            "display_name": null,
+            "max_tokens": 1000000,
+            "max_output_tokens": 65536,
+            "max_completion_tokens": 65536,
+            "capabilities": {
+              "tools": true,
+              "images": false,
+              "parallel_tool_calls": false,
+              "prompt_cache_key": false,
+            },
+          },
+        ],
+      },
+    },
+  },
+
+  // basic config
+  "auto_update": false,
+  "agent": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-sonnet-4",
+    },
+    "default_profile": "write",
+  },
+  "features": {
+    "edit_prediction_provider": "copilot",
+  },
+  "icon_theme": "Catppuccin Latte",
+  "ui_font_size": 17,
+  "buffer_font_size": 15,
+  "agent_ui_font_size": 17,
+  "buffer_font_family": "Maple Mono NF CN",
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "Catppuccin Mocha",
+  },
+  "autosave": "on_focus_change",
+  "close_on_file_delete": true,
+  "hide_mouse": "on_typing",
+
+  // debugger
+  "inlay_hints": { "show_value_hints": false },
+
+  //vim
+  "vim_mode": true,
+  "helix_mode": true,
+
+  // remote dev
+  "ssh_connections": [
+    {
+      "host": "a6000",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/data/yitingting/code/comparison_model/kg-bert"],
+        },
+        {
+          "paths": ["/data/yitingting/moran/KoGReD"],
+        },
+        {
+          "paths": ["/data/yitingting/moran/StructKGC"],
+        },
+      ],
+    },
+  ],
+
+  // language server
+  "languages": {
+    "Markdown": {
+      "show_edit_predictions": false,
+    },
+    "C++": {
+      "show_edit_predictions": false,
+    },
+    "Python": {
+      "language_servers": ["basedpyright", "ruff"],
+    },
+    "CSS": {
+      "language_servers": ["tailwindcss-language-server"],
+    },
+  },
+
+  //proxy
+  "proxy": "http://127.0.0.1:7890",
+}

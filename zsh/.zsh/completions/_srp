@@ -1,0 +1,57 @@
+#compdef srp
+
+# ---- srp 命令补全函数 ----
+# 支持子命令:
+#   start        启动反向代理
+#   stop         停止反向代理
+#   status       查看反向代理状态
+#   set          设置并持久化默认 alias
+#   current      显示当前默认 alias
+#   -h/--help    帮助信息
+
+_srp() {
+  local -a subcmds aliases options default_file default_alias
+
+  # ---- 定位默认文件 ----
+  default_file="${XDG_CONFIG_HOME:-$HOME/.config}/srp/default"
+  if [[ -r "$default_file" ]]; then
+    default_alias=$(< "$default_file")
+  else
+    default_alias="spark"
+  fi
+
+  # ---- alias 列表（后续可扩展）----
+  aliases=("$default_alias")
+
+  subcmds=(
+    'start:启动 ssh-reverse-proxy'
+    'stop:停止 ssh-reverse-proxy'
+    'status:查看 ssh-reverse-proxy 状态'
+    'set:设置默认服务器别名'
+    'current:显示当前默认服务器别名'
+  )
+
+  options=(
+    '-h:显示帮助信息'
+    '--help:显示帮助信息'
+  )
+
+  # ---- 第 1 个参数：子命令或选项 ----
+  if (( CURRENT == 2 )); then
+    _describe 'subcommand' subcmds
+    _describe 'options' options
+    return
+  fi
+
+  # ---- 第 2 个参数：alias 补全（部分子命令需要） ----
+  case $words[2] in
+    start|stop|status|set)
+      if (( CURRENT == 3 )); then
+        _describe 'alias' aliases
+      fi
+      ;;
+  esac
+}
+
+_srp "$@"
+
