@@ -1,3 +1,11 @@
+# wireguard
+alias wgup='sudo wg-quick up wg0'
+alias wgdown='sudo wg-quick down wg0'
+alias wgstatus='sudo wg show'
+alias wgedit='sudoedit /etc/wireguard/wg0.conf'
+alias wgwatch='watch -n 2 sudo wg show'
+
+
 # helix
 alias hx='helix'
 
