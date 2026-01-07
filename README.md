@@ -25,7 +25,12 @@ Check out the dotfiles in $HOME directory using git.
 > Before run the following cmd, ensure you are in the root directory of dotfiles. 
 
 ```shell
+# via ssh if you need to push modification back to remote repo
+# note that you should config the .ssh before run the cmd
 git clone git@github.com:morethan987/arch-dotfiles.git dotfiles
+
+# or via http if you just use the dotfiles
+git clone https://github.com/morethan987/arch-dotfiles.git dotfiles
 
 cd dotfiles
 ```
