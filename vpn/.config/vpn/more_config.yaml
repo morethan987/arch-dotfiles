@@ -1,0 +1,7 @@
+rules:
+ - IP-CIDR,192.168.1.1/32,DIRECT
+ - DOMAIN,ipw.cn,DIRECT
+ - DOMAIN,test-ipv6.com,DIRECT
+ - DOMAIN,webofscience.clarivate.cn,🎓学术网站
+ - DOMAIN,sciencedirect.com,🎓学术网站
+ - DOMAIN,pdf.sciencedirect.com,🎓学术网站
