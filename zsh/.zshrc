@@ -62,7 +62,15 @@ if [[ -o interactive ]]; then
 fi
 
 # ====== zoxide ======
-eval "$(zoxide init --cmd cd zsh)"
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+
+# ====== fzf ======
+source <(fzf --zsh)
+export FZF_DEFAULT_OPTS='
+  --bind=alt-j:down,alt-k:up
+'
 
 # ====== Shell Applications ======
 # custom
