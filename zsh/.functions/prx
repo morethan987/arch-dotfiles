@@ -1,0 +1,25 @@
+#!/bin/zsh
+
+# 默认代理地址
+local proxy_server="127.0.0.1:7890"
+
+if [[ "$1" == "on" ]]; then
+    export http_proxy="http://${proxy_server}"
+    export https_proxy="http://${proxy_server}"
+    export all_proxy="socks5://${proxy_server}" # 建议加上这一行以支持更多协议
+    echo "\033[32m[ON]\033[0m Terminal Proxy set to: $proxy_server"
+
+elif [[ "$1" == "off" ]]; then
+    unset http_proxy
+    unset https_proxy
+    unset all_proxy
+    echo "\033[31m[OFF]\033[0m Terminal Proxy removed."
+
+else
+    # 默认显示 help
+    echo "prx - Proxy Management Tool"
+    echo "Usage:"
+    echo "  prx on   : Enable proxy ($proxy_server)"
+    echo "  prx off  : Disable proxy"
+    echo "  prx help : Show this message"
+fi
