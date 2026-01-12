@@ -1,0 +1,18 @@
+{
+  "niri/window": {
+    "format": "{title}",
+    "max-length": 35,
+    "icon": true,
+    "icon-size": 18,
+    "tooltip": true
+  },
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "default": "",
+      "focused": "",
+      "10": "󰊴 ",
+      "lock": ""
+    }
+  },
+}

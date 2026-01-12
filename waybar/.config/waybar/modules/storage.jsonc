@@ -1,0 +1,30 @@
+{
+  "group/storage": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": "500",
+      "transition-left-to-right": "true",
+      "children-class": "drawer-child"
+    },
+    "modules": [
+      "memory#ram",
+      "memory#swap"
+    ]
+  },
+  "memory#ram": {
+    "interval": 4,
+    "format": " {percentage}%",
+    "states": {
+      "warning": 80,
+      "critical": 95
+    },
+    "tooltip": "{}",
+    "tooltip-format": "{used}/{total} GiB"
+  },
+  "memory#swap": {
+    "interval": 16,
+    "format": "󰾵 {swapPercentage}%",
+    "tooltip": "{}",
+    "tooltip-format": "{swapUsed}/{swapTotal}GiB"
+  },
+}

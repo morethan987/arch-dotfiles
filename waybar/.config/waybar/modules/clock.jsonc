@@ -1,0 +1,18 @@
+{
+  "clock": {
+    "interval": 1,
+    "format": "  {:%H:%M:%S     %m.%d %a}",
+    // 核心改动 1: 使用 <tt> 标签强制等宽布局
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "format": {
+        "months": "<span color='#cba6f7'><b>{}</b></span>",
+        "days": "<span color='#cdd6f4'><b>{}</b></span>",
+        // 核心改动 2: 在每个星期字符后添加一个空格，用于对齐
+        "weekdays": "<span color='#f9e2af'><b>{} </b></span>",
+        "today": "<span color='#f5e0dc'><b><u>{}</u></b></span>"
+      }
+    }
+  },
+}

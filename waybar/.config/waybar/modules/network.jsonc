@@ -28,5 +28,32 @@
 		"tooltip-format-wifi": "Network: {essid}\nIP Addr: {ipaddr}/{cidr}\nStrength: {signalStrength}%\nFrequency: {frequency} GHz \nDownload󰇚 {bandwidthDownBits}\nUpload󰕒 {bandwidthUpBits}",
 		"tooltip-format-disconnected": "Wi-Fi Disconnected",
 		"tooltip-format-disabled": "Wi-Fi Disabled"
-	}
+	},
+  "network#info": {
+	  "interval": 2,
+	  "format": "󱘖  Offline",
+	  "format-wifi": "{icon}  {bandwidthDownBits}",
+	  "format-ethernet": "󰈀  {bandwidthDownBits}",
+	  "min-length": 11,
+	  "tooltip": "{}",
+	  "tooltip-format-wifi": "{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
+	  "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
+	  "format-icons": ["󰤫", "󰤟", "󰤢", "󰤥", "󰤨"],
+	  "states": { "normal": 25 }
+	},
+	"network#up": {
+	  "interval": 4,
+	  "format": " ",
+	  "format-wifi": "󰕒 {bandwidthUpBits}",
+	  "format-ethernet": "󰕒 {bandwidthUpBits}",
+	  "format-disconnected": " ",
+	  "min-length": 11
+	},
+	"network#down": {
+	  "interval": 4,
+	  "format": "󰇚 {bandwidthDownBits}",
+	  "format-wifi": "󰇚 {bandwidthDownBits}",
+	  "format-ethernet": "󰇚 {bandwidthDownBits}",
+	  "min-length": 11
+	},
 }

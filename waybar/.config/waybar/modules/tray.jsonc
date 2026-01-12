@@ -1,0 +1,18 @@
+{
+  "group/traym": {
+    "orientation": "horizontal",
+    "modules": [
+      "custom/trayicon",
+      "tray"
+    ]
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 8
+  },
+  "custom/trayicon": {
+    "format": "󰮯 ",
+    "tooltip": false,
+    "on-click": "alacritty -e ~/.config/waybar/scripts/pacman.sh"
+  }
+}

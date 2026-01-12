@@ -1,0 +1,6 @@
+{
+  "cpu": {
+    "interval": 4,
+    "format": " {usage}%",
+  },
+}

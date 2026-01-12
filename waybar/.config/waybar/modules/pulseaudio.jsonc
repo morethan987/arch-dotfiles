@@ -1,0 +1,23 @@
+{
+  "pulseaudio#output": {
+    "format": "{icon}  {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-source-muted": "{volume}",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        ""
+      ]
+    },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "pwvucontrol & aplay ~/.config/sounds/interact.wav",
+    "tooltip": true,
+    "scroll-step": 2
+  },
+}

@@ -1,0 +1,13 @@
+{
+  "disk": {
+    "interval": 16,
+    "format": " {percentage_used}%",
+    "tooltip": "{}",
+    "tooltip-format": "Free {free}",
+    "on-click": "alacritty -e zsh -ic 'cd / && sudo ncdu --exclude /mnt/ --exclude-kernfs'",
+    "states": {
+      "warning": 85,
+      "critical": 95
+    }
+  }
+}
