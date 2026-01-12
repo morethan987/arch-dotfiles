@@ -19,5 +19,5 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 
-" 复制到系统剪贴板
-vnoremap <CR> "+y
+" 复制到系统剪贴板 需要gvim
+" vnoremap <CR> "+y

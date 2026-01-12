@@ -55,8 +55,14 @@ if [[ -o interactive ]]; then
     FUNCTIONS_DIR="$HOME/.functions"
 
     if [[ -d "$FUNCTIONS_DIR" ]]; then
-        for f in "$FUNCTIONS_DIR"/*.sh(N); do
-            source "$f"
+        # 1. 把目录加入 Zsh 的函数搜索路径 (fpath)
+        fpath=("$FUNCTIONS_DIR" $fpath)
+
+        # 2. 遍历目录下的所有文件，并登记为 autoload
+        # (N-.) 表示：N(如果目录为空不报错), -(如果是符号链接则指向原文件), .(只匹配普通文件)
+        # :t 表示只取文件名（tail），不取路径
+        for f in "$FUNCTIONS_DIR"/*(N-.); do
+            autoload -Uz "${f:t}"
         done
     fi
 fi
