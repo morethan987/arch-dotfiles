@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
-ART=$'
+local ART=$'
 \e[31m               \e[34m║      ║  \e[0mSCORE:  3333360  
 \e[34m══════════════════╝      ╚═══════════════════════════════════════════════╗ 
       \e[31m,--.    \e[33m,---.          \e[36m,--.   \e[32m,--.                           \e[35m,--.  \e[34m║ 
@@ -12,7 +12,9 @@ ART=$'
 '
 
 # 定义更新结束后显示的消息
-END="\e[33m═════════════════════════════\e[30;43m Pacman died! \e[33;49m══════════════════════════════\n"
+local END="\e[33m═════════════════════════════\e[30;43m Pacman died! \e[33;49m══════════════════════════════\n"
 
-# 使用 alacritty 启动新窗口来执行更新 
-alacritty --title Pacman -e zsh -c 'echo -e "$1" && paru -Syu && echo -e "$2" && sleep 2' zsh "$ART" "$END"
+echo -e "$ART"
+paru -Syu
+echo -e "$END"
+sleep 2
