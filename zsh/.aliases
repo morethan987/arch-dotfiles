@@ -41,6 +41,7 @@ alias l='ls -CF'
 
 # suffix aliases
 alias -s mp4='mpv'
+alias -s wav='mpv'
 alias -s json='helix'
 alias -s md='helix'
 alias -s pdf='papers'

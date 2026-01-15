@@ -17,11 +17,11 @@ dracula_white="%{$fg[white]%}"
 reset_color="%{$reset_color%}"
 
 # ====== Prompt ======
-BG_PURPLE="%K{magenta}"
-FG_BLACK="%F{black}"
-RESET_ALL="%f%k"
+NEWLINE=$'\n'
+USER_HOST="${dracula_purple} ${dracula_white}%n@%m"
+WORK_PATH="${dracula_yellow} ${dracula_white}%~"
 
-PROMPT="${BG_PURPLE}${FG_BLACK} %n@%M ${RESET_ALL} ${dracula_white} %~ ${dracula_pink}❯ ${reset_color}"
+PROMPT="${NEWLINE}${USER_HOST} ${WORK_PATH}${reset_color}${NEWLINE}%(?.${dracula_pink}.%F{red})❯ ${reset_color}"
 
 # ====== History ======
 HISTFILE=~/.zsh_history
