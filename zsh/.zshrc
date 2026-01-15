@@ -18,8 +18,8 @@ reset_color="%{$reset_color%}"
 
 # ====== Prompt ======
 NEWLINE=$'\n'
-USER_HOST="${dracula_purple} ${dracula_white}%n@%m"
-WORK_PATH="${dracula_yellow} ${dracula_white}%~"
+USER_HOST="${dracula_purple} "
+WORK_PATH="${dracula_cyan}%~"
 
 PROMPT="${NEWLINE}${USER_HOST} ${WORK_PATH}${reset_color}${NEWLINE}%(?.${dracula_pink}.%F{red})❯ ${reset_color}"
 
