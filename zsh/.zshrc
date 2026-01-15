@@ -20,7 +20,7 @@ reset_color="%{$reset_color%}"
 top_corner="╭─"
 bottom_corner="╰─"
 
-PROMPT="${dracula_purple}${top_corner} ${dracula_cyan}%~${reset_color}"$'\n'
+PROMPT="${dracula_purple}${top_corner} ${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
 PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
 
 # ====== History ======
