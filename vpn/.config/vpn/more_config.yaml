@@ -4,11 +4,28 @@ tun:
   auto-route: true
   auto-redirect: true
   auto-detect-interface: true
+  strict-route: true
+  gso: true
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - tls://8.8.4.4
+    - tls://1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
 
 rules:
- - IP-CIDR,192.168.1.1/32,DIRECT
- - DOMAIN,ipw.cn,DIRECT
- - DOMAIN,test-ipv6.com,DIRECT
  - DOMAIN,webofscience.clarivate.cn,🎓学术网站
  - DOMAIN,sciencedirect.com,🎓学术网站
  - DOMAIN,pdf.sciencedirect.com,🎓学术网站
