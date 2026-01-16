@@ -1,0 +1,8 @@
+# 将 Alt-j 映射为向下滚动半屏
+map <A-j> scroll half-down
+
+# 将 Alt-k 映射为向上滚动半屏
+map <A-k> scroll half-up
+
+# 分号触发命令模式
+map ; focus_inputbar ":"
