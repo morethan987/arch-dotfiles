@@ -6,3 +6,14 @@ map <A-k> scroll half-up
 
 # 分号触发命令模式
 map ; focus_inputbar ":"
+
+# 2. 自定义深色方案（Gruvbox 风格，比纯黑更护眼）
+set recolor-lightcolor "#282828" # 背景
+set recolor-darkcolor  "#ebdbb2" # 文字
+
+# 3. 解决缩放/加载时的白屏问题
+set default-bg "#282828"         # 必须与上面的 lightcolor 一致
+set render-loading "false"
+
+# 4. 保留图片原始色调（可选）
+set recolor-keephue "true"
