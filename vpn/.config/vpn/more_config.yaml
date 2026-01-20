@@ -1,3 +1,5 @@
+# 如果VPN被claude识破了，考虑关闭chrome的QUIC协议，mihomo无法解析
+
 tun:
   enable: true
   stack: system
@@ -27,5 +29,3 @@ dns:
 
 rules:
  - DOMAIN,webofscience.clarivate.cn,🎓学术网站
- - DOMAIN,sciencedirect.com,🎓学术网站
- - DOMAIN,pdf.sciencedirect.com,🎓学术网站
