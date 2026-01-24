@@ -12,16 +12,16 @@
       "model": "zai-coding-plan/glm-4.7"
     },
     "oracle": {
-      "model": "google/antigravity-claude-sonnet-4-5"
+      "model": "github-copilot/claude-sonnet-4.5"
     },
     "frontend-ui-ux-engineer": {
-      "model": "google/antigravity-gemini-3-pro-high"
+      "model": "github-copilot/claude-sonnet-4.5"
     },
     "document-writer": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "zai-coding-plan/glm-4.7"
     },
     "multimodal-looker": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "zai-coding-plan/glm-4.7"
     }
   }
 }
