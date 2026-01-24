@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-local CONFIG_URL="https://kdd4n.no-mad-world.club/link/bWwdoupuJUd1GPW8?clash=3"
 local CONFIG_FILE="/etc/mihomo/config.yaml"
 local MORE_FILE="$HOME/.config/vpn/more_config.yaml"
 local TEMP_FILE="/tmp/vpn_config_temp.yaml"
@@ -13,7 +12,7 @@ if ! command -v yq &> /dev/null; then
 fi
 
 echo "[1] 下载最新 config.yaml ..."
-if ! sudo curl -L -o "$CONFIG_FILE" "$CONFIG_URL"; then
+if ! sudo curl -L -o "$CONFIG_FILE" "$IKUUU_URL"; then
     echo "✗ 下载失败"
     return 1
 fi

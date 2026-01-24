@@ -6,7 +6,7 @@
 
 # ================= 配置区域 =================
 # server酱的API密钥
-local DEFAULT_KEY="SCT305487TRpLglaDSyhL409kKeNZe4qWH"
+# local SERVERJIANG_KEY=""
 local VERSION="1.2.1"
 
 # ================= 颜色定义 =================
@@ -19,7 +19,7 @@ local GREY="\033[0;37m"
 local RESET="\033[0m"
 
 # ================= 变量初始化 =================
-local SENDKEY="$DEFAULT_KEY"
+local SENDKEY="$SERVERJIANG_KEY"
 local TASK_NAME="未命名任务"
 local LOG_FILE="watchdog.log"
 local DAEMON_MODE=false
