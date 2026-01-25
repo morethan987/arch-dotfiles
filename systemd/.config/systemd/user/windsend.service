@@ -1,0 +1,27 @@
+[Unit]
+Description=WindSend Clipboard Sync Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+# 等价于 cd /home/morethan/WindSend
+WorkingDirectory=/home/morethan/WindSend
+
+# 程序完整路径
+ExecStart=/usr/local/bin/windsend
+
+# 自动重启策略
+Restart=on-failure
+RestartSec=3
+
+# 标准输出处理（避免 nohup）
+StandardOutput=null
+StandardError=journal
+
+# 环境变量（可选）
+# Environment=WS_BASE_DIR=/home/morethan/WindSend
+
+[Install]
+WantedBy=graphical-session.target

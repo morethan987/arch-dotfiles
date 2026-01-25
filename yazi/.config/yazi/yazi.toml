@@ -1,0 +1,15 @@
+[mgr]
+ratio = [2,4,4]
+show_hidden = true
+show_symlink = true
+
+[opener]
+edit = [
+    { run = '$EDITOR "$@"', block = true, for = "unix" }
+]
+
+[plugin]
+thumbnail = true
+
+[preview]
+image = false
