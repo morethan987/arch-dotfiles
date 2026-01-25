@@ -8,7 +8,7 @@ local ART=$'
 \e[33m o  o\e[31m|~~  |  \e[33m ／    ;       \e[36m| ~~ | \e[32m|    |\e[33mo  o  o  o  o  o  o  o  o\e[35m|    | \e[34m║ 
      \e[31m|/ / |   \e[33m`.__,／       \e[36m|/ / | \e[32m|/ / |                         \e[35m|/ / | \e[34m║
 \e[34m══════════════════╗      ╔═══════════════════════════════════════════════╝
-                  ║      ║  \e[0mparu -Syu 
+                  ║      ║  \e[0mparu -Syu && mise up 
 '
 
 # 定义更新结束后显示的消息
@@ -16,5 +16,6 @@ local END="\e[33m═════════════════════
 
 echo -e "$ART"
 paru -Syu
+mise up
 echo -e "$END"
 sleep 2
