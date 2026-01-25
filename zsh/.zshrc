@@ -73,13 +73,18 @@ if command -v zoxide >/dev/null 2>&1; then
 fi
 
 # ====== fzf ======
-source <(fzf --zsh)
-export FZF_DEFAULT_OPTS='
-  --bind=alt-j:down,alt-k:up
-'
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+  export FZF_DEFAULT_OPTS='
+    --bind=alt-j:down,alt-k:up
+  '
+fi
 
 # ====== mise ======
-eval "$(mise activate zsh)"
+# 判断 mise 是否已安装 且 当前用户不是 root
+if command -v mise &> /dev/null && [[ $EUID -ne 0 ]]; then
+  eval "$(mise activate zsh)"
+fi
 
 # ====== Shell Applications ======
 # custom
