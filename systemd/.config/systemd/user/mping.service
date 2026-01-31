@@ -1,0 +1,11 @@
+[Unit]
+Description=Run mping once a day after delay
+
+[Service]
+Type=oneshot
+ExecStartPre=/usr/bin/sleep 60
+ExecStart=%h/.local/bin/mping
+WorkingDirectory=%h
+
+[Install]
+WantedBy=default.target

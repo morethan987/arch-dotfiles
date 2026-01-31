@@ -64,7 +64,7 @@
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-opus-4.5",
+      "model": "claude-sonnet-4.5",
     },
     "default_profile": "write",
   },
@@ -99,16 +99,27 @@
       "args": [],
       "projects": [
         {
-          "paths": ["/data/yitingting/code/comparison_model/kg-bert"],
+          "paths": [
+            "/data/yitingting/code"
+          ]
         },
         {
-          "paths": ["/data/yitingting/moran/KoGReD"],
+          "paths": [
+            "/data/yitingting/code/comparison_model/kg-bert"
+          ]
         },
         {
-          "paths": ["/data/yitingting/moran/StructKGC"],
+          "paths": [
+            "/data/yitingting/moran/KoGReD"
+          ]
         },
-      ],
-    },
+        {
+          "paths": [
+            "/data/yitingting/moran/StructKGC"
+          ]
+        }
+      ]
+    }
   ],
 
   // language server

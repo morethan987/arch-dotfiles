@@ -14,6 +14,7 @@ j = { j = "normal_mode" }
 
 [editor]
 bufferline = "multiple"
+line-number = "relative"
 
 [editor.soft-wrap]
 enable = true

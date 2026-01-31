@@ -29,6 +29,8 @@ alias seeu='systemctl poweroff'
 alias again='systemctl reboot'
 alias scu='systemctl --user'
 alias sc='sudo systemctl'
+alias jcu='journalctl --user'
+alias jc='sudo journalctl'
 alias whichcmd='ps -o cmd -p'
 
 

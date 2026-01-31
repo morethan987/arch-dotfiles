@@ -2,20 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
   "google_auth": false,
   "agents": {
-    "Sisyphus": {
+    "sisyphus": {
       "model": "github-copilot/claude-opus-4.5"
     },
     "librarian": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "google/antigravity-claude-sonnet-4-5"
     },
     "explore": {
-      "model": "zai-coding-plan/glm-4.7"
+      "model": "google/antigravity-gemini-3-flash"
     },
     "oracle": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "google/antigravity-claude-sonnet-4-5"
     },
     "frontend-ui-ux-engineer": {
-      "model": "github-copilot/claude-sonnet-4.5"
+      "model": "google/antigravity-gemini-3-pro"
     },
     "document-writer": {
       "model": "zai-coding-plan/glm-4.7"

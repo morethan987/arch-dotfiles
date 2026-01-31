@@ -28,4 +28,5 @@ dns:
       - 240.0.0.0/4
 
 rules:
+ - DOMAIN-SUFFIX,gmail.com,🔰 选择节点
  - DOMAIN,webofscience.clarivate.cn,🎓学术网站

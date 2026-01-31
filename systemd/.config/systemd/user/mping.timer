@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily mping timer
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+Unit=mping.service
+
+[Install]
+WantedBy=timers.target
