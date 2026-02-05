@@ -1,0 +1,12 @@
+[Unit]
+Description=Mono Daemon Service
+
+[Service]
+Type=simple
+ExecStart=/home/morethan/.local/bin/mono daemon start --foreground
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+

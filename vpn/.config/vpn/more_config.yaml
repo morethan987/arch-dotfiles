@@ -8,6 +8,10 @@ tun:
   auto-detect-interface: true
   strict-route: true
   gso: true
+  skip-proxy:
+    - 10.100.0.0/24
+    - 127.0.0.1/8
+    - 'localhost'
 
 dns:
   enable: true
@@ -27,6 +31,29 @@ dns:
     ipcidr:
       - 240.0.0.0/4
 
+proxies:
+  - {name: "校园网出口", type: socks5, server: 10.100.0.2, port: 1080, interface-name: wg0}
+
+proxy-groups:
+  - name: "校园网资源"
+    type: select
+    proxies:
+      - "校园网出口"
+      - "DIRECT"  # 备选项
+
 rules:
- - DOMAIN-SUFFIX,gmail.com,🔰 选择节点
- - DOMAIN,webofscience.clarivate.cn,🎓学术网站
+ - DOMAIN-SUFFIX,gmail.com,🔰 选择节点 # 谷歌邮箱服务
+ # - DOMAIN,webofscience.clarivate.cn,🎓学术网站 # 校园网直连用这个
+
+ # WireGuard远程访问
+ - DOMAIN,webofscience.clarivate.cn,校园网资源
+ - DOMAIN-SUFFIX,zendesk.com,校园网资源
+ - DOMAIN-SUFFIX,webofscience.com,校园网资源
+ - DOMAIN-SUFFIX,webofknowledge.com,校园网资源
+ - DOMAIN-SUFFIX,clarivate.com,校园网资源
+ - DOMAIN-SUFFIX,clarivate.cn,校园网资源
+ - DOMAIN-SUFFIX,isiknowledge.com,校园网资源
+ - DOMAIN-SUFFIX,thomsonreuters.com,校园网资源
+ - DOMAIN-SUFFIX,scientific-direct.com,校园网资源
+ - DOMAIN-SUFFIX,onetrust.com,校园网资源
+ - DOMAIN-SUFFIX,cookielaw.org,校园网资源

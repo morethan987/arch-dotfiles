@@ -79,3 +79,16 @@ default-timeout=0
 # 当通知被折叠时的样式
 [grouped]
 format=(%g) <b>%s</b>\n%b
+
+# 对 mono 应用的通知进行特殊处理
+[app-name="mono" actionable]
+# 永不自动消失，等待用户操作
+default-timeout=0
+# 使用高优先级边框颜色
+border-color=#ff5555
+# 左键点击 = 开始任务
+on-button-left=invoke-action start
+# 中键点击 = 弹出 action 菜单
+on-button-middle=exec makoctl menu -n "$id" fuzzel -d -p "选择操作: "
+# 右键点击 = 跳过任务
+on-button-right=invoke-action skip
