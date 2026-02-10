@@ -1,7 +1,10 @@
 [tools]
 bun = "latest"
 go = "latest"
+hugo = "latest"
 java = "21"
 maven = "latest"
 opencode = "latest"
+prek = "latest"
+rust = "latest"
 usage = "latest"

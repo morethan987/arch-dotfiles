@@ -7,6 +7,9 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "provider": "copilot"
+  },
   "soft_wrap": "editor_width",
   "which_key": {
     "enabled": false
@@ -65,12 +68,9 @@
   "agent": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.5",
+      "model": "claude-opus-4.6",
     },
     "default_profile": "write",
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 17,

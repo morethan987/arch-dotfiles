@@ -7,6 +7,23 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "soft_wrap": "editor_width",
+  "which_key": {
+    "enabled": false
+  },
+  "git_panel": {
+    "tree_view": false
+  },
+  "colorize_brackets": true,
+  "window_decorations": "client",
+  "tabs": {
+    "file_icons": true,
+    "git_status": false,
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_branch_icon": true,
+  },
   "language_models": {
     "openai_compatible": {
       "Qwen3Coder": {
@@ -22,8 +39,8 @@
               "tools": true,
               "images": false,
               "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
+              "prompt_cache_key": false,
+            },
           },
           {
             "name": "qwen3-coder-flash",
@@ -35,35 +52,35 @@
               "tools": true,
               "images": false,
               "parallel_tool_calls": false,
-              "prompt_cache_key": false
-            }
-          }
-        ]
-      }
-    }
+              "prompt_cache_key": false,
+            },
+          },
+        ],
+      },
+    },
   },
 
   // basic config
   "auto_update": false,
   "agent": {
     "default_model": {
-      "provider": "deepseek",
-      "model": "deepseek-chat"
+      "provider": "copilot_chat",
+      "model": "claude-opus-4.6",
     },
-    "default_profile": "minimal"
+    "default_profile": "write",
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "copilot",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 17,
   "buffer_font_size": 15,
-  "agent_font_size": 17,
+  "agent_ui_font_size": 17,
   "buffer_font_family": "Maple Mono NF CN",
   "theme": {
     "mode": "dark",
     "light": "Ayu Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "autosave": "on_focus_change",
   "close_on_file_delete": true,
@@ -74,28 +91,33 @@
 
   //vim
   "vim_mode": true,
+  "helix_mode": true,
 
   // remote dev
   "ssh_connections": [
     {
-      "host": "huaweicloud-910b-8",
+      "host": "a6000",
+      "args": [],
       "projects": [
         {
-          "paths": ["/home/ma-user/work/moran/KoGReD"]
+          "paths": [
+            "/data/yitingting/code"
+          ]
         },
         {
-          "paths": ["/home/ma-user/work/moran/KoPA"]
-        }
-      ]
-    },
-    {
-      "host": "A6000",
-      "projects": [
-        {
-          "paths": ["/data/yitingting/code"]
+          "paths": [
+            "/data/yitingting/code/comparison_model/kg-bert"
+          ]
         },
         {
-          "paths": ["/data/yitingting/moran/KoGReD"]
+          "paths": [
+            "/data/yitingting/moran/KoGReD"
+          ]
+        },
+        {
+          "paths": [
+            "/data/yitingting/moran/StructKGC"
+          ]
         }
       ]
     }
@@ -103,12 +125,20 @@
 
   // language server
   "languages": {
+    "Markdown": {
+      "show_edit_predictions": false,
+    },
     "C++": {
-      "show_edit_predictions": false
+      "show_edit_predictions": false,
     },
     "Python": {
-      "language_servers": ["pylsp", "!pyright"],
-      "preferred_line_length": 100
-    }
-  }
+      "language_servers": ["basedpyright", "ruff"],
+    },
+    "CSS": {
+      "language_servers": ["tailwindcss-language-server"],
+    },
+  },
+
+  //proxy
+  "proxy": "http://127.0.0.1:7890",
 }

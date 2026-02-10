@@ -1,3 +1,6 @@
+# hugo-exporter
+alias cpt='cd /home/morethan/GitHub/Hugo-Blowfish-Exporter && cp main.js styles.css /mnt/E/Obsidian/Data/网站/.obsidian/plugins/hugo-blowfish-exporter/'
+
 # cargo
 alias cr='cargo run'
 
