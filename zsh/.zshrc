@@ -23,9 +23,9 @@ setopt prompt_subst
 top_corner="╭─"
 bottom_corner="╰─"
 
-VENV_PART='${VIRTUAL_ENV_PROMPT:+${dracula_green}(${VIRTUAL_ENV_PROMPT})}'
+VENV_PART='${VIRTUAL_ENV_PROMPT:+${dracula_green}(${VIRTUAL_ENV_PROMPT}) }'
 
-PROMPT="${dracula_purple}${top_corner} ${VENV_PART} ${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
+PROMPT="${dracula_purple}${top_corner} ${VENV_PART}${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
 PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
 
 # ====== History ======
