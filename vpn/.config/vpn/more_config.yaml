@@ -4,10 +4,10 @@ tun:
   enable: true
   stack: system
   auto-route: true
-  auto-redirect: true
+  auto-redirect: false
   auto-detect-interface: true
   strict-route: true
-  gso: true
+  gso: false
   skip-proxy:
     - 10.100.0.0/24
     - 127.0.0.1/8
