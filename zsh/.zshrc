@@ -17,10 +17,15 @@ dracula_white="%{$fg[white]%}"
 reset_color="%{$reset_color%}"
 
 # ====== Prompt ======
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+setopt prompt_subst
+
 top_corner="╭─"
 bottom_corner="╰─"
 
-PROMPT="${dracula_purple}${top_corner} ${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
+VENV_PART='${VIRTUAL_ENV_PROMPT:+${dracula_green}(${VIRTUAL_ENV_PROMPT})}'
+
+PROMPT="${dracula_purple}${top_corner} ${VENV_PART} ${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
 PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
 
 # ====== History ======
