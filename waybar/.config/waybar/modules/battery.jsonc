@@ -1,11 +1,45 @@
 {
-  "battery": {
-    "states": {
-      "warning": 30,
-      "critical": 10
-    },
-    "format": "{icon} {capacity}%",
-    "format-charging": "󰉁 {capacity}%",
-    "format-icons": [ "󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ]
-  },
+    "battery": {
+        "interval": 10,
+        // 关键修正：指定电源适配器名称
+        // 电池满电并连接电源的时候，操作系统会断开对电池的供电，也就是 Not charging 状态
+        // 这种情况与未连接电源，也就是 Discarging 的情况很容易令人误会：明明已经连接电源但却显示未连接
+        "adapter": "AC0",
+
+        // 只要电量 >= 98% 就视为满电，强制使用 full 样式
+        "full-at": 98,
+
+        "states": {
+            "warning": 40,
+            "critical": 20
+        },
+
+        // --- 图标定义 ---
+        "format": "{icon} {capacity}%", // 纯电池供电时
+
+        // 充电时：使用带闪电的图标
+        "format-charging": "⚡{capacity}%", 
+
+        // 连接电源但未充电：显示插头图标
+        "format-plugged": " {capacity}%", 
+
+        // 满电状态
+        "format-full": "󰁹 {capacity}%",
+
+        // 电池图标序列 (0% - 100%)
+        "format-icons": ["󰂎", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+
+        // --- 鼠标悬停提示 (Tooltip) ---
+        // 1. 默认情况 (放电中)：显示剩余时间
+        "tooltip-format": "{time} - {capacity}%",
+
+        // 2. 充电中
+        "tooltip-format-charging": "正在充电: {capacity}% (剩余 {time})",
+
+        // 3. 关键修复：当状态为 Not charging 且连接了 AC0 时，Waybar 会应用这个格式
+        "tooltip-format-plugged": "电源直接供电",
+
+        // 4. 满电
+        "tooltip-format-full": "电池已充满"
+    }
 }

@@ -249,16 +249,56 @@
 }
 /* }}} */
 
-/* Battery chargin */
+/* Battery Styling */
 /* {{{ */
-#waybar.main #custom-battery.charging,
+
+/* 1. 默认状态 (放电中) - 蓝绿色 */
+#waybar.main #battery {
+    color: @misc;
+    background: @background1;
+}
+
+/* 2. 充电状态 (Charging) - 绿色，带呼吸动画 */
 #waybar.main #battery.charging {
-  color: @misc;
-  animation-iteration-count: 10;
-  animation-direction: alternate;
-  animation-name: blink-modifier-text;
-  animation-duration: 1s;
-  animation-timing-function: steps(15);
+    color: @date; 
+    background: @background1;
+    animation-name: blink-modifier-text; /* 调用你已有的动画 */
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* 3. 关键修复：已连接电源 / 电池保护模式 (Plugged) */
+/* 当你配置了 "adapter": "AC0" 后，Not charging 状态会激活这个类 */
+#waybar.main #battery.plugged {
+    color: @date; /* 绿色，表示电源健康 */
+    background: @background1;
+    animation: none; /* 不需要闪烁 */
+}
+
+/* 4. 满电状态 (Full) */
+#waybar.main #battery.full {
+    color: @date;
+    background: @background1;
+    animation: none;
+}
+
+/* 5. 低电量警告 */
+#waybar.main #battery.warning {
+    color: @warning;
+    animation-name: blink-critical-text;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* 6. 极低电量 */
+#waybar.main #battery.critical {
+    color: @warning;
+    animation-name: blink-critical-text;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 /* }}} */
 
