@@ -8,7 +8,7 @@ _srp_ensure_dir() {
   mkdir -p "$(dirname "$_srp_default_file")" 2>/dev/null || true
 }
 
-# load persisted default (fall back to "spark")
+# load persisted default
 if [ -r "$_srp_default_file" ]; then
   SRP_DEFAULT="$(cat "$_srp_default_file")"
 else
@@ -32,9 +32,9 @@ Defaults:
 - default alias read from config file "$XDG_CONFIG_HOME/srp/default" or "~/.config/srp/default"
 Behavior:
 - srp              => show current default and then start it
-- srp start X      => start ssh-reverse-proxy@X.service
-- srp status X     => show status of ssh-reverse-proxy@X.service
-- srp stop X       => stop ssh-reverse-proxy@X.service
+- srp start [X]    => start ssh-reverse-proxy@X.service (uses default if X omitted)
+- srp status [X]   => show status of X, or list ALL running instances if X omitted
+- srp stop [X]     => stop ssh-reverse-proxy@X.service (uses default if X omitted)
 - srp set X        => persist X as new default for future shells
 - srp current      => show current persisted default
 EOF
@@ -51,7 +51,18 @@ case "$action" in
     return $?
     ;;
   status)
-    sudo systemctl status "ssh-reverse-proxy@${target}.service"
+    if [ -n "$2" ]; then
+      # 如果用户明确指定了某个实例 (例如 srp status B)，则打印详细的日志状态
+      sudo systemctl status "ssh-reverse-proxy@${2}.service"
+    else
+      # 如果用户没有指定参数 (只敲了 srp status)，则列出所有实例的运行概况
+      echo -e "\n🔍 [当前所有 SSH 反向代理状态]:"
+      # 使用 list-units 列出所有的 srp 服务，--no-pager 防止它进入 less 翻页模式
+      sudo systemctl list-units --type=service "ssh-reverse-proxy@*.service" --no-pager
+      
+      echo -e "📌 当前默认目标: \033[32m$SRP_DEFAULT\033[0m"
+      echo "(Tip: 输入 'srp status <alias>' 可查看指定实例的详细日志)"
+    fi
     return $?
     ;;
   stop)
@@ -59,12 +70,12 @@ case "$action" in
     return $?
     ;;
   set)
-    if [ -z "$target" ]; then
+    if [ -z "$2" ]; then
       echo "Usage: srp set <alias>"
       return 2
     fi
     _srp_ensure_dir
-    printf '%s' "$target" > "$_srp_default_file" && SRP_DEFAULT="$target"
+    printf '%s' "$2" > "$_srp_default_file" && SRP_DEFAULT="$2"
     echo "Default SRP target set to: $SRP_DEFAULT"
     return $?
     ;;

@@ -1,5 +1,7 @@
 [tools]
 bun = "latest"
+"cargo:cargo-binstall" = "latest"
+"cargo:cargo-edit" = "latest"
 go = "latest"
 hugo = "latest"
 java = "21"
@@ -8,3 +10,8 @@ opencode = "latest"
 prek = "latest"
 rust = "latest"
 usage = "latest"
+
+[settings]
+
+[settings.cargo]
+binstall = true
