@@ -47,18 +47,20 @@ local target="${2:-$SRP_DEFAULT}"
 
 case "$action" in
   start)
-    sudo systemctl start "ssh-reverse-proxy@${target}.service"
+    systemctl --user start "ssh-reverse-proxy@${target}.service"
     return $?
     ;;
   status)
     if [ -n "$2" ]; then
-      # 如果用户明确指定了某个实例 (例如 srp status B)，则打印详细的日志状态
-      sudo systemctl status "ssh-reverse-proxy@${2}.service"
+      # 如果用户明确指定了某个实例，则打印详细的日志状态
+      systemctl --user status "ssh-reverse-proxy@${2}.service"
+      echo -e "\n📝 [最近日志]:"
+      journalctl --user -u "ssh-reverse-proxy@${2}.service" -n 15 --no-pager
     else
       # 如果用户没有指定参数 (只敲了 srp status)，则列出所有实例的运行概况
       echo -e "\n🔍 [当前所有 SSH 反向代理状态]:"
       # 使用 list-units 列出所有的 srp 服务，--no-pager 防止它进入 less 翻页模式
-      sudo systemctl list-units --type=service "ssh-reverse-proxy@*.service" --no-pager
+      systemctl --user list-units --type=service "ssh-reverse-proxy@*.service" --no-pager
       
       echo -e "📌 当前默认目标: \033[32m$SRP_DEFAULT\033[0m"
       echo "(Tip: 输入 'srp status <alias>' 可查看指定实例的详细日志)"
@@ -66,7 +68,7 @@ case "$action" in
     return $?
     ;;
   stop)
-    sudo systemctl stop "ssh-reverse-proxy@${target}.service"
+    systemctl --user stop "ssh-reverse-proxy@${target}.service"
     return $?
     ;;
   set)

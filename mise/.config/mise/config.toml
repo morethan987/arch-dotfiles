@@ -1,6 +1,5 @@
 [tools]
 bun = "latest"
-"cargo:cargo-binstall" = "latest"
 "cargo:cargo-edit" = "latest"
 go = "latest"
 hugo = "latest"
