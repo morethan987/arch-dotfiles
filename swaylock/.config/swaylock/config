@@ -2,35 +2,59 @@ daemonize
 show-failed-attempts
 clock
 screenshots
+
+# 模糊背景
 effect-blur=13x13
 effect-vignette=0.5:0.5
-color=6272A4
+
+# 字体
 font="Inter"
-font-size=125
+font-size=140
+
+# 时间与日期（中文习惯）
+timestr=%H:%M
+datestr=%Y-%m-%d
+
+# 指示器
 indicator
 indicator-radius=200
 indicator-thickness=13
+
+# Dracula 主题颜色
+color=6272A4
 line-color=282A36
 ring-color=BD93F9
 inside-color=282A36
-key-hl-color=50FA7B
+
 separator-color=00000000
+
 text-color=F8F8F2
 text-caps-lock-color=""
+
+# 按键高亮
+key-hl-color=50FA7B
+bs-hl-color=8BE9FD
+
+# 验证中
 line-ver-color=BD93F9
 ring-ver-color=BD93F9
 inside-ver-color=282A36
 text-ver-color=8BE9FD
+
+# 输入错误
 ring-wrong-color=FF5555
 text-wrong-color=FF5555
 inside-wrong-color=282A36
+line-wrong-color=282A36
+
+# 清空输入
 inside-clear-color=282A36
 text-clear-color=8BE9FD
 ring-clear-color=8BE9FD
 line-clear-color=8BE9FD
-line-wrong-color=282A36
-bs-hl-color=8BE9FD
-datestr=%B %e %a
-timestr=%I:%M %p
-fade-in=0.4
+
+# 动画
+fade-in=0.2
+
+# 忽略空密码
 ignore-empty-password

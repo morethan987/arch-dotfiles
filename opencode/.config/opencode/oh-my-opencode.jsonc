@@ -23,5 +23,9 @@
     "multimodal-looker": {
       "model": "zai-coding-plan/glm-4.7"
     }
+  },
+  "categories": {
+    // Frontend work: Gemini dominates visual tasks
+    "visual-engineering": { "model": "google/gemini-3.1-pro-preview", "variant": "high" },
   }
 }
