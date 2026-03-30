@@ -95,3 +95,7 @@ fi
 # custom
 export PATH="/home/morethan/.local/bin:$PATH"
 
+# ====== posener/complete ======
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /home/morethan/.local/bin/srp srp
+

@@ -1,4 +1,8 @@
 [tools]
+"aqua:go-task/task" = "latest"
+"aqua:golangci/golangci-lint" = "latest"
+"aqua:mvdan/gofumpt" = "latest"
+"aqua:sqlc-dev/sqlc" = "latest"
 bun = "latest"
 "cargo:cargo-edit" = "latest"
 go = "latest"

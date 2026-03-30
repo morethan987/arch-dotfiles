@@ -285,6 +285,7 @@ layout {
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 spawn-at-startup "/usr/bin/gammastep"
+spawn-at-startup "dbus-update-activation-environment" "--all"
 spawn-sh-at-startup "/usr/bin/wl-clip-persist --clipboard regular"
 spawn-sh-at-startup "/usr/sbin/gnome-keyring-daemon --start --components=secrets"
 

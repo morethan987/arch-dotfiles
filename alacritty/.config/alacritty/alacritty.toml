@@ -13,5 +13,6 @@ osc52 = "OnlyCopy" # 远程终端与剪贴板交互控制
 
 [keyboard]
 bindings = [
-  { key = "N", mods = "Control", action = "CreateNewWindow"}
+  { key = "N", mods = "Control", action = "CreateNewWindow"},
+  { key = "H", mods = "Alt", action = "ToggleViMode" }
 ]

@@ -77,13 +77,4 @@
       "` `": "workspace::OpenInTerminal",
     },
   },
-  {
-    "context": "Workspace",
-    "bindings": {
-      "ctrl-alt-c": [
-        "agent::NewExternalAgentThread",
-        { "agent": "claude_code" },
-      ],
-    },
-  },
 ]
