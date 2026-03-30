@@ -1,0 +1,16 @@
+[global]
+  default = "a6000"
+  remote_port = 7890
+  local_port = 7890
+  ssh_options = ["ServerAliveInterval=60", "ExitOnForwardFailure=yes"]
+
+[servers]
+  [servers.a6000]
+    remote_port = 7890
+    local_port = 0
+  [servers.atlas]
+    remote_port = 7890
+    local_port = 0
+  [servers.jump-campus]
+    remote_port = 7890
+    local_port = 0

@@ -1,0 +1,18 @@
+# 1. 调暗屏幕 (提示即将锁定)
+timeout 600 'brightnessctl -s set 15%' resume 'brightnessctl -r'
+
+# 2. 锁定屏幕
+# 建议改用 swaylock-effects 等带有毛玻璃效果的锁屏
+timeout 600 'swaylock -f'
+
+# 3. 关闭显示器电源 (DPMS)
+timeout 300'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors'
+
+# 4. 自动挂起
+# timeout 1800 'systemctl suspend'
+
+# 5. 系统事件处理
+# 睡眠前锁屏
+before-sleep 'swaylock -f'
+# 锁定信号处理 (配合 loginctl lock-session)
+lock 'swaylock -f'
