@@ -21,9 +21,7 @@
       "K": ["editor::SelectUpByLines", { "lines": 13 }],
       "J": ["editor::SelectDownByLines", { "lines": 13 }],
       ";": "command_palette::Toggle",
-      "shift-tab": "editor::Backtab",
       "shift-s": "vim::PushAddSurrounds",
-      "tab": "editor::Tab",
     },
   },
   {
@@ -34,8 +32,6 @@
       "H": "editor::MoveToBeginningOfLine",
       "J": ["editor::MoveDownByLines", { "lines": 13 }],
       "K": ["editor::MoveUpByLines", { "lines": 13 }],
-      "shift-tab": "editor::Backtab",
-      "tab": "editor::Tab",
       "g b": "pane::GoBack",
     },
   },
@@ -44,12 +40,17 @@
     "context": "Editor && vim_mode == helix_normal",
     "bindings": {
       ";": "command_palette::Toggle",
-      "L": "editor::MoveToEndOfLine",
-      "H": "editor::MoveToBeginningOfLine",
       "alt-j": ["editor::MoveDownByLines", { "lines": 13 }],
       "alt-k": ["editor::MoveUpByLines", { "lines": 13 }],
       "ctrl-a": "editor::SelectAll",
       "g .": "editor::ToggleCodeActions",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "tab": "editor::MoveToEndOfLargerSyntaxNode",
+      "shift-tab": "editor::Tab",
     },
   },
   // basic

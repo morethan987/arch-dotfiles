@@ -8,14 +8,14 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "edit_predictions": {
-    "provider": "copilot"
+    "provider": "copilot",
   },
   "soft_wrap": "editor_width",
   "which_key": {
-    "enabled": false
+    "enabled": false,
   },
   "git_panel": {
-    "tree_view": true
+    "tree_view": true,
   },
   "colorize_brackets": true,
   "window_decorations": "client",
@@ -67,10 +67,11 @@
   "auto_update": false,
   "agent": {
     "default_model": {
+      "effort": "high",
       "provider": "copilot_chat",
-      "model": "claude-sonnet-4.6",
+      "model": "gpt-5.3-codex",
     },
-    "default_profile": "write",
+    "default_profile": "ask",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 17,
@@ -85,6 +86,7 @@
   "autosave": "on_focus_change",
   "close_on_file_delete": true,
   "hide_mouse": "on_typing",
+  "relative_line_numbers": "enabled",
 
   // debugger
   "inlay_hints": { "show_value_hints": false },
@@ -100,27 +102,19 @@
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/data/yitingting/code"
-          ]
+          "paths": ["/data/yitingting/code"],
         },
         {
-          "paths": [
-            "/data/yitingting/code/comparison_model/kg-bert"
-          ]
+          "paths": ["/data/yitingting/code/comparison_model/kg-bert"],
         },
         {
-          "paths": [
-            "/data/yitingting/moran/KoGReD"
-          ]
+          "paths": ["/data/yitingting/moran/KoGReD"],
         },
         {
-          "paths": [
-            "/data/yitingting/moran/StructKGC"
-          ]
-        }
-      ]
-    }
+          "paths": ["/data/yitingting/moran/StructKGC"],
+        },
+      ],
+    },
   ],
 
   // language server
@@ -138,7 +132,5 @@
       "language_servers": ["tailwindcss-language-server"],
     },
   },
-
-  //proxy
-  "proxy": "http://127.0.0.1:7890",
+  "project_panel": { "git_status_indicator": true },
 }

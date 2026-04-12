@@ -40,12 +40,22 @@ alias la='ls -A'
 alias l='ls -CF'
 
 
+# backgroud predix function
+# &! zsh specific syntax, dispatch process from current shell
+# >/dev/null 2>&1 ignore debugging output, make your shell clean
+open_bg() {
+  ( "$@" >/dev/null 2>&1 &! )
+}
+
 # suffix aliases
-alias -s mp4='mpv'
-alias -s wav='mpv'
+# run silently
+alias -s mp4='open_bg mpv'
+alias -s wav='open_bg mpv'
+alias -s pdf='open_bg zathura'
+alias -s png='open_bg gthumb'
+alias -s jpg='open_bg gthumb'
+alias -s svg='open_bg gthumb'
+
+# block
 alias -s json='helix'
 alias -s md='helix'
-alias -s pdf='zathura'
-alias -s png='gthumb'
-alias -s jpg='gthumb'
-alias -s svg='gthumb'

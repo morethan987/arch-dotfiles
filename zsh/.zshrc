@@ -1,6 +1,3 @@
-# ====== Editor set  ======
-export EDITOR=helix
-
 # ====== zmv ======
 # autoload -Uz zmv
 

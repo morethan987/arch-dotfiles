@@ -5,6 +5,7 @@
 "aqua:sqlc-dev/sqlc" = "latest"
 bun = "latest"
 "cargo:cargo-edit" = "latest"
+gh = "latest"
 go = "latest"
 hugo = "latest"
 java = "21"
