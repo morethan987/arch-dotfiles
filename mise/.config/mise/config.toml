@@ -6,6 +6,7 @@ go = "latest"
 hugo = "latest"
 java = "21"
 maven = "latest"
+"npm:gitnexus" = "latest"
 opencode = "latest"
 prek = "latest"
 rust = "latest"
@@ -15,3 +16,6 @@ usage = "latest"
 
 [settings.cargo]
 binstall = true
+
+[settings.npm]
+package_manager = "bun"
