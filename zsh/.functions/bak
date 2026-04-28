@@ -1,0 +1,45 @@
+#!/bin/zsh
+
+local SERVER_ALIAS="a6000"
+local DISK_MOUNT="/run/media/morethan/morethan"
+local REMOTE_MOUNT="$DISK_MOUNT/mnt_a6000"
+local CONFIG="$HOME/.config/borgmatic/a6000.yaml"
+
+echo "🔍 正在准备备份环境..."
+
+# 1. 确保移动硬盘已挂载
+if ! mountpoint -q "$DISK_MOUNT"; then
+    udisksctl mount -b /dev/disk/by-label/morethan || return 1
+fi
+
+# 2. 检查并创建远程挂载点
+mkdir -p "$REMOTE_MOUNT"
+
+# 3. 临时挂载服务器目录
+if ! mountpoint -q "$REMOTE_MOUNT"; then
+    echo "🔗 正在连接服务器 a6000..."
+    # 使用 sshfs 挂载，添加超时控制防止卡死
+    sshfs "$SERVER_ALIAS:/data/yitingting" "$REMOTE_MOUNT" -o ConnectTimeout=5,ServerAliveInterval=15
+    if [ $? -ne 0 ]; then
+        echo "❌ 无法连接服务器，请检查校园网。"
+        return 1
+    fi
+fi
+
+# 4. 执行备份
+echo "📦 正在同步数据至本地移动硬盘..."
+borgmatic -c "$CONFIG" --progress --stats
+local BORG_EXIT=$?
+
+# 5. 收尾：卸载所有挂载点
+echo "🧹 正在清理挂载点..."
+# 先卸载远程服务器
+fusermount -u "$REMOTE_MOUNT" 2>/dev/null
+# 再卸载移动硬盘
+udisksctl unmount -b /dev/disk/by-label/morethan
+
+if [ $BORG_EXIT -eq 0 ]; then
+    echo "🚀 备份成功！硬盘已安全卸载。"
+else
+    echo "⚠️ 备份中有报错，请查看输出。"
+fi

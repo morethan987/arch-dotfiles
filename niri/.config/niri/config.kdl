@@ -6,11 +6,6 @@
 // Input device configuration.
 // Find the full list of options on the wiki:
 // https://yalter.github.io/niri/Configuration:-Input
-environment {
-    GTK_IM_MODULE "fcitx"
-    QT_IM_MODULE "fcitx"
-}
-
 input {
     keyboard {
         xkb {
@@ -376,6 +371,24 @@ window-rule {
 window-rule {
     match app-id=r#"obsidian"#
     open-maximized true
+}
+
+// Enable blur behind the Alacritty terminal.
+window-rule {
+    match app-id="^Alacritty$"
+
+    background-effect {
+        blur true
+    }
+}
+
+// Enable blur behind the fuzzel launcher.
+layer-rule {
+    match namespace="^launcher$"
+
+    background-effect {
+        blur true
+    }
 }
 
 layer-rule {

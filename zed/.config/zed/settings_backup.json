@@ -7,12 +7,23 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "cli_default_open_behavior": "new_window",
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "edit_predictions": {
+    "provider": "copilot",
+  },
   "soft_wrap": "editor_width",
   "which_key": {
-    "enabled": false
+    "enabled": false,
   },
   "git_panel": {
-    "tree_view": false
+    "dock": "left",
+    "tree_view": false,
   },
   "colorize_brackets": true,
   "window_decorations": "client",
@@ -63,14 +74,13 @@
   // basic config
   "auto_update": false,
   "agent": {
+    "dock": "right",
     "default_model": {
+      "effort": "high",
       "provider": "copilot_chat",
-      "model": "claude-opus-4.6",
+      "model": "gpt-5.3-codex",
     },
-    "default_profile": "write",
-  },
-  "features": {
-    "edit_prediction_provider": "copilot",
+    "default_profile": "ask",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 17,
@@ -85,6 +95,7 @@
   "autosave": "on_focus_change",
   "close_on_file_delete": true,
   "hide_mouse": "on_typing",
+  "relative_line_numbers": "enabled",
 
   // debugger
   "inlay_hints": { "show_value_hints": false },
@@ -101,22 +112,12 @@
       "projects": [
         {
           "paths": [
-            "/data/yitingting/code"
+            "/data/yitingting/.config"
           ]
         },
         {
           "paths": [
-            "/data/yitingting/code/comparison_model/kg-bert"
-          ]
-        },
-        {
-          "paths": [
-            "/data/yitingting/moran/KoGReD"
-          ]
-        },
-        {
-          "paths": [
-            "/data/yitingting/moran/StructKGC"
+            "/data/yitingting/github/SynKGR"
           ]
         }
       ]
@@ -138,7 +139,6 @@
       "language_servers": ["tailwindcss-language-server"],
     },
   },
-
-  //proxy
-  "proxy": "http://127.0.0.1:7890",
+  "project_panel": { "dock": "left",
+                     "git_status_indicator": true },
 }

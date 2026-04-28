@@ -78,4 +78,11 @@
       "` `": "workspace::OpenInTerminal",
     },
   },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "alt-j": "project_panel::ScrollDown",
+      "alt-k": "project_panel::ScrollUp",
+    },
+  },
 ]

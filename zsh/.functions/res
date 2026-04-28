@@ -1,0 +1,39 @@
+#!/bin/zsh
+
+local SERVER_ALIAS="a6000"
+local DISK_MOUNT="/run/media/morethan/morethan"
+local REMOTE_MOUNT="$DISK_MOUNT/mnt_a6000"
+local CONFIG="$HOME/.config/borgmatic/a6000.yaml"
+
+echo "🔍 准备还原环境..."
+
+# 1. 挂载硬盘
+if ! mountpoint -q "$DISK_MOUNT"; then
+    udisksctl mount -b /dev/disk/by-label/morethan || return 1
+fi
+
+# 2. 挂载远程目录 (注意：这次不能用 -o ro，因为我们要写入)
+mkdir -p "$REMOTE_MOUNT"
+if ! mountpoint -q "$REMOTE_MOUNT"; then
+    echo "🔗 连接服务器并开启写入权限..."
+    sshfs "$SERVER_ALIAS:/data/yitingting" "$REMOTE_MOUNT" -o ConnectTimeout=5,ServerAliveInterval=15
+fi
+
+# 3. 列出所有备份版本供选择
+echo "📅 可选的备份版本："
+borgmatic -c "$CONFIG" list
+
+echo -n "请复制并输入要还原的 Archive 名称 (直接回车取消): "
+read ARCHIVE_NAME
+
+if [[ -z "$ARCHIVE_NAME" ]]; then
+    echo "取消还原。"
+else
+    echo "⚠️ 正在将 $ARCHIVE_NAME 还原至服务器..."
+    # --path 指定还原到挂载点目录
+    borgmatic -c "$CONFIG" restore --archive "$ARCHIVE_NAME" --destination "$REMOTE_MOUNT" --progress
+    echo "✅ 还原完成！"
+fi
+
+# 4. 清理
+fusermount -u "$REMOTE_MOUNT"
