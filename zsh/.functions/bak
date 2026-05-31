@@ -1,45 +1,78 @@
 #!/bin/zsh
 
-local SERVER_ALIAS="a6000"
+# ── 配置区 ──────────────────────────────────────────
+local DISK_LABEL="morethan"
 local DISK_MOUNT="/run/media/morethan/morethan"
-local REMOTE_MOUNT="$DISK_MOUNT/mnt_a6000"
-local CONFIG="$HOME/.config/borgmatic/a6000.yaml"
+local REPO="$DISK_MOUNT/restic-repo"
+local REST_PORT=18765
+local SERVER="a6000" # SSH 别名
+local REMOTE_PATH="/data/yitingting/github/SynKGR"
+local RESTIC_BIN="/data/yitingting/.local/bin/restic" # 服务器上 restic 的路径
+# ─────────────────────────────────────────────────────
 
-echo "🔍 正在准备备份环境..."
+# 检查环境变量
+if [[ -z "$RESTIC_PASSWORD" ]]; then
+    echo "❌ 请先设置环境变量 RESTIC_PASSWORD，例如："
+    echo "   export RESTIC_PASSWORD='你的密码'"
+    return 1
+fi
 
-# 1. 确保移动硬盘已挂载
+echo "🔍 [1/5] 检查移动硬盘..."
 if ! mountpoint -q "$DISK_MOUNT"; then
-    udisksctl mount -b /dev/disk/by-label/morethan || return 1
+    udisksctl mount -b /dev/disk/by-label/$DISK_LABEL || {
+        echo "❌ 移动硬盘挂载失败"; return 1
+    }
 fi
 
-# 2. 检查并创建远程挂载点
-mkdir -p "$REMOTE_MOUNT"
+echo "🚀 [2/5] 启动 rest-server（监听 :$REST_PORT）..."
+restic-rest-server \
+    --path "$REPO" \
+    --listen "127.0.0.1:$REST_PORT" \
+    --no-auth \
+    --append-only \
+    2>/tmp/rest-server.log &
+local REST_PID=$!
+sleep 2
 
-# 3. 临时挂载服务器目录
-if ! mountpoint -q "$REMOTE_MOUNT"; then
-    echo "🔗 正在连接服务器 a6000..."
-    # 使用 sshfs 挂载，添加超时控制防止卡死
-    sshfs "$SERVER_ALIAS:/data/yitingting" "$REMOTE_MOUNT" -o ConnectTimeout=5,ServerAliveInterval=15
-    if [ $? -ne 0 ]; then
-        echo "❌ 无法连接服务器，请检查校园网。"
-        return 1
-    fi
+if ! kill -0 $REST_PID 2>/dev/null; then
+    echo "❌ rest-server 启动失败，查看 /tmp/rest-server.log"
+    return 1
 fi
 
-# 4. 执行备份
-echo "📦 正在同步数据至本地移动硬盘..."
-borgmatic -c "$CONFIG" --progress --stats
-local BORG_EXIT=$?
+echo "🔗 [3/5] 建立 SSH 反向隧道并触发远端备份..."
+ssh "$SERVER" \
+        -R "${REST_PORT}:127.0.0.1:${REST_PORT}" \
+        -o ServerAliveInterval=30 \
+        -o ServerAliveCountMax=6 \
+        "RESTIC_PASSWORD='${RESTIC_PASSWORD}' \
+         RESTIC_PROGRESS_FPS=0.1 \
+         $RESTIC_BIN \
+           -r rest:http://127.0.0.1:${REST_PORT}/ \
+           backup $REMOTE_PATH \
+           --exclude='**/__pycache__' \
+           --exclude='**/*.pyc' \
+           --exclude='**/.cache' \
+           --exclude='**/.tmp' \
+           --exclude='**/.venv' \
+           --exclude='**/.crush' \
+           --exclude='**/.local' \
+           --exclude='**/.git' \
+           --exclude='**/.zed_server' \
+           --exclude='**/wandb/debug*' \
+           --exclude='**/wandb/run-*/tmp' \
+           --verbose"
+local BACKUP_EXIT=$?
 
-# 5. 收尾：卸载所有挂载点
-echo "🧹 正在清理挂载点..."
-# 先卸载远程服务器
-fusermount -u "$REMOTE_MOUNT" 2>/dev/null
-# 再卸载移动硬盘
-udisksctl unmount -b /dev/disk/by-label/morethan
+echo "🧹 [4/5] 关闭 rest-server..."
+kill $REST_PID 2>/dev/null
+wait $REST_PID 2>/dev/null
 
-if [ $BORG_EXIT -eq 0 ]; then
-    echo "🚀 备份成功！硬盘已安全卸载。"
+echo "📊 [5/5] 收尾..."
+if [ $BACKUP_EXIT -eq 0 ]; then
+    restic -r "$REPO" snapshots --last
+    echo "🎉 备份成功！"
 else
-    echo "⚠️ 备份中有报错，请查看输出。"
+    echo "⚠️ 备份异常，退出码: $BACKUP_EXIT"
 fi
+
+udisksctl unmount -b /dev/disk/by-label/$DISK_LABEL

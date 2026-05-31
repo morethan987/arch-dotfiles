@@ -6,6 +6,9 @@
 
 [servers]
   [servers.a6000]
+    remote_port = 51847
+    local_port = 0
+  [servers.4090x3]
     remote_port = 51837
     local_port = 0
   [servers.atlas]

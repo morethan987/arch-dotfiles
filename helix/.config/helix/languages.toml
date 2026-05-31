@@ -7,7 +7,7 @@
 # command = "ruff"
 # args = ["server"]
 
-# [[language]]
-# name = "markdown"
-# language-servers = [ "markdown-oxide" ]
+[[language]]
+name = "markdown"
+language-servers = [ "markdown-oxide" ]
 

@@ -5,6 +5,7 @@
 "aqua:sqlc-dev/sqlc" = "latest"
 bun = "latest"
 gh = "latest"
+"github:can1357/oh-my-pi" = "latest"
 go = "latest"
 hugo = "latest"
 java = "21"

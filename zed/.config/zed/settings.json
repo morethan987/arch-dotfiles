@@ -7,6 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "oh-my-pi": {
+      "type": "custom",
+      "command": "omp",
+      "args": ["acp"],
+    },
+  },
   "cli_default_open_behavior": "new_window",
   "outline_panel": {
     "dock": "left",
@@ -76,17 +83,23 @@
   "agent": {
     "dock": "right",
     "default_model": {
+      "enable_thinking": true,
       "effort": "high",
-      "provider": "copilot_chat",
-      "model": "gpt-5.3-codex",
+      "provider": "deepseek",
+      "model": "deepseek-v4-flash",
     },
-    "default_profile": "ask",
+    "default_profile": "write",
   },
   "icon_theme": "Catppuccin Latte",
-  "ui_font_size": 17,
+  "ui_font_size": 16.5,
   "buffer_font_size": 15.5,
-  "agent_ui_font_size": 17,
+  "agent_ui_font_size": 16,
+  "agent_buffer_font_size": 15,
   "buffer_font_family": "Maple Mono NF CN",
+  "terminal": {
+    "font_size": 15,
+    "line_height": "standard",
+  },
   "theme": {
     "mode": "dark",
     "light": "Ayu Light",
@@ -118,7 +131,19 @@
           "paths": ["/data/yitingting/.config"],
         },
         {
+          "paths": ["/data/yitingting/github/SimKGC"],
+        },
+        {
           "paths": ["/data/yitingting/github/SynKGR"],
+        },
+      ],
+    },
+    {
+      "host": "4090x3",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/root/github/SynKGR"],
         },
       ],
     },
@@ -128,15 +153,6 @@
   "languages": {
     "Markdown": {
       "show_edit_predictions": false,
-    },
-    "C++": {
-      "show_edit_predictions": false,
-    },
-    "Python": {
-      "language_servers": ["basedpyright", "ruff"],
-    },
-    "CSS": {
-      "language_servers": ["tailwindcss-language-server"],
     },
   },
 }
