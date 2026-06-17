@@ -1,5 +1,4 @@
-# theme = "dracula_at_night"
-theme = "dracula"
+theme = "peachpuff"
 
 [keys.normal]
 # H/L 跳到行首/行尾

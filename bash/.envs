@@ -1,0 +1,5 @@
+# for rootless docker
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/docker.sock
+
+# huggingface
+export HF_ENDPOINT=https://hf-mirror.com

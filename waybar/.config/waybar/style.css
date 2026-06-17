@@ -68,7 +68,7 @@
 /* {{{ */
 #waybar.main {
   background: @background2;
-  font-family: "JetBrains Mono Nerd Font";
+  font-family: "Maple Mono NF CN";
   font-size: 12pt;
   font-weight: 600;
   color: @text;
@@ -76,7 +76,7 @@
 }
 
 #waybar.main button {
-  font-family: JetBrains Mono Nerd Font;
+  font-family: "Maple Mono NF CN";
   font-size: 10pt;
   font-weight: 600;
   color: @text;
@@ -495,7 +495,7 @@ tooltip {
   border: 2px solid @audio; /* 使用紫色作为边框颜色 */
   border-radius: 12px;
   font-weight: 600;
-  font-family: "JetBrains Mono Nerd Font";
+  font-family: "Maple Mono NF CN";
 }
 
 tooltip label {

@@ -88,7 +88,7 @@
       "provider": "deepseek",
       "model": "deepseek-v4-flash",
     },
-    "default_profile": "write",
+    "default_profile": "ask",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 16.5,
@@ -97,6 +97,8 @@
   "agent_buffer_font_size": 15,
   "buffer_font_family": "Maple Mono NF CN",
   "terminal": {
+    "show_count_badge": false,
+    "flexible": true,
     "font_size": 15,
     "line_height": "standard",
   },
@@ -128,25 +130,49 @@
       "args": [],
       "projects": [
         {
-          "paths": ["/data/yitingting/.config"],
+          "paths": [
+            "/data/yitingting/.config"
+          ]
         },
         {
-          "paths": ["/data/yitingting/github/SimKGC"],
+          "paths": [
+            "/data/yitingting/github/SimKGC"
+          ]
         },
         {
-          "paths": ["/data/yitingting/github/SynKGR"],
+          "paths": [
+            "/data/yitingting/github/SynKGR"
+          ]
         },
-      ],
+        {
+          "paths": [
+            "/home/morethan/github/SWE-CI"
+          ]
+        }
+      ]
     },
     {
       "host": "4090x3",
       "args": [],
       "projects": [
         {
-          "paths": ["/root/github/SynKGR"],
-        },
-      ],
+          "paths": [
+            "/root/github/SynKGR"
+          ]
+        }
+      ]
     },
+    {
+      "host": "shixi",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/morethan/github/SWE-CI"
+          ]
+        }
+      ]
+    }
   ],
 
   // language server

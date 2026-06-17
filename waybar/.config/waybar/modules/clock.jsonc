@@ -1,9 +1,9 @@
 {
   "clock": {
     "interval": 1,
-    "format": "  {:%H:%M:%S     %m.%d %a}",
+    "format": " {:%H:%M:%S  󰸗 %m.%d %a}",
     // 核心改动 1: 使用 <tt> 标签强制等宽布局
-    "tooltip-format": "<tt>{calendar}</tt>",
+    "tooltip-format": "<span font='Maple Mono NF CN'>{calendar}</span>",
     "calendar": {
       "mode": "month",
       "format": {
