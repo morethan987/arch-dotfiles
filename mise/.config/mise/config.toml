@@ -2,7 +2,6 @@
 "aqua:go-task/task" = "latest"
 bun = "latest"
 gh = "latest"
-"github:can1357/oh-my-pi" = "latest"
 go = "latest"
 hugo = "latest"
 java = "21"
@@ -11,7 +10,9 @@ prek = "latest"
 rust = {version = "latest", components = "rust-analyzer"}
 usage = "latest"
 
-[settings]
+[tools."github:can1357/oh-my-pi"]
+version = "latest"
+minimum_release_age = "1d"
 
 [settings.cargo]
 binstall = true
