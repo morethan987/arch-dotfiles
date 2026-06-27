@@ -152,26 +152,16 @@
       ]
     },
     {
-      "host": "4090x3",
+      "host": "cs336",
       "args": [],
       "projects": [
         {
           "paths": [
-            "/root/github/SynKGR"
+            "/root/cs336/assignment1-basics"
           ]
         }
-      ]
-    },
-    {
-      "host": "shixi",
-      "args": [],
-      "projects": [
-        {
-          "paths": [
-            "/home/morethan/github/SWE-CI"
-          ]
-        }
-      ]
+      ],
+      "upload_binary_over_ssh": true
     }
   ],
 

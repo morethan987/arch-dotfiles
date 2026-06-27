@@ -12,7 +12,7 @@ usage = "latest"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"
-minimum_release_age = "1d"
+minimum_release_age = "0d"
 
 [settings.cargo]
 binstall = true

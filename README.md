@@ -9,13 +9,21 @@ Ensure the following is installed.
 ### Git
 
 ```shell
+# for Arch Linux
 sudo pacman -S git
+
+# for Ubuntu
+sudo apt update && sudo apt install git
 ```
 
 ### Stow
 
 ```shell
+# for Arch Linux
 sudo pacman -S stow
+
+# for Ubuntu
+sudo apt update && sudo apt install stow
 ```
 
 ## How to use

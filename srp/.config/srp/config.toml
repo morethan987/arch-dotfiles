@@ -8,11 +8,8 @@
   [servers.a6000]
     remote_port = 51847
     local_port = 0
-  [servers.4090x3]
-    remote_port = 51837
-    local_port = 0
-  [servers.atlas]
-    remote_port = 7890
+  [servers.cs336]
+    remote_port = 51847
     local_port = 0
   [servers.jump-campus]
     remote_port = 7890
