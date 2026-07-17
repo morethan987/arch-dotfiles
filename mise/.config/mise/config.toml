@@ -1,22 +1,13 @@
 [tools]
-"aqua:go-task/task" = "latest"
+uv = "latest"
 bun = "latest"
 gh = "latest"
-go = "latest"
-hugo = "latest"
-java = "21"
-maven = "latest"
 prek = "latest"
-rust = {version = "latest", components = "rust-analyzer"}
 usage = "latest"
-zig = "master"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"
 minimum_release_age = "0d"
-
-[settings.cargo]
-binstall = true
 
 [settings.npm]
 package_manager = "bun"

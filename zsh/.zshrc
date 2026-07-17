@@ -29,8 +29,9 @@ PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
+setopt extendedglob
 setopt HIST_IGNORE_DUPS HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS SHARE_HISTORY
-unsetopt autocd beep
+unsetopt beep
 
 # ====== Completion ======
 zstyle ':completion:*' menu select
