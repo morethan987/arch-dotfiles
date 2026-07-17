@@ -4,13 +4,13 @@
 # ====== Zsh Color Setup ======
 autoload -U colors && colors
 
-# Dracula 调色板
-dracula_purple="%{$fg[magenta]%}"
-dracula_green="%{$fg[green]%}"
-dracula_cyan="%{$fg[cyan]%}"
-dracula_yellow="%{$fg[yellow]%}"
-dracula_pink="%{$fg_bold[magenta]%}"
-dracula_white="%{$fg[white]%}"
+# Catppuccin Mocha
+blue="%{$fg[blue]%}"
+green="%{$fg[green]%}"
+cyan="%{$fg[cyan]%}"
+yellow="%{$fg[yellow]%}"
+red="%{$fg[red]%}"
+white="%{$fg[white]%}"
 reset_color="%{$reset_color%}"
 
 # ====== Prompt ======
@@ -20,10 +20,10 @@ setopt prompt_subst
 top_corner="╭─"
 bottom_corner="╰─"
 
-VENV_PART='${VIRTUAL_ENV_PROMPT:+${dracula_green}(${VIRTUAL_ENV_PROMPT}) }'
+VENV_PART='${VIRTUAL_ENV_PROMPT:+${green}(${VIRTUAL_ENV_PROMPT}) }'
 
-PROMPT="${dracula_purple}${top_corner} ${VENV_PART}${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
-PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
+PROMPT="${blue}${top_corner} ${VENV_PART}${white}%n@%m ${yellow} ${white}%~${reset_color}"$'\n'
+PROMPT+="${blue}${bottom_corner}${blue}❯ ${reset_color}"
 
 # ====== Basics ======
 HISTFILE=~/.zsh_history
