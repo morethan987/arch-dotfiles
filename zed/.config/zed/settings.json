@@ -162,6 +162,17 @@
         }
       ],
       "upload_binary_over_ssh": true
+    },
+    {
+      "host": "home",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home/morethan/github/cs336-assignment1-basics"
+          ]
+        }
+      ]
     }
   ],
 
