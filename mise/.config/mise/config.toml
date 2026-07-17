@@ -9,6 +9,7 @@ maven = "latest"
 prek = "latest"
 rust = {version = "latest", components = "rust-analyzer"}
 usage = "latest"
+zig = "master"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"

@@ -25,12 +25,12 @@ VENV_PART='${VIRTUAL_ENV_PROMPT:+${dracula_green}(${VIRTUAL_ENV_PROMPT}) }'
 PROMPT="${dracula_purple}${top_corner} ${VENV_PART}${dracula_white}%n@%m ${dracula_yellow} ${dracula_white}%~${reset_color}"$'\n'
 PROMPT+="${dracula_purple}${bottom_corner}${dracula_pink}❯ ${reset_color}"
 
-# ====== History ======
+# ====== Basics ======
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
 setopt HIST_IGNORE_DUPS HIST_REDUCE_BLANKS HIST_SAVE_NO_DUPS SHARE_HISTORY
-unsetopt autocd
+unsetopt autocd beep
 
 # ====== Completion ======
 zstyle ':completion:*' menu select
@@ -85,17 +85,13 @@ fi
 # ====== mise ======
 # 判断 mise 是否已安装 且 当前用户不是 root
 if command -v mise &> /dev/null && [[ $EUID -ne 0 ]]; then
-  eval "$(mise activate zsh)"
+  eval "$(mise activate zsh --shims)"
 fi
-
-# ====== Shell Applications ======
-# custom
-export PATH="/home/morethan/.local/bin:$PATH"
-
-# bun
-export PATH="/home/morethan/.bun/bin:$PATH"
 
 # ====== posener/complete ======
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /home/morethan/.local/bin/srp srp
 
+# ====== envs ======
+export PATH="/home/morethan/.local/bin:$PATH"
+export GPG_TTY=$(tty)

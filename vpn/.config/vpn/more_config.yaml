@@ -1,4 +1,5 @@
 # 如果VPN被claude识破了，考虑关闭chrome的QUIC协议，mihomo无法解析
+# 回滚配置后还是无法恢复的情况，考虑删掉 cache.db 缓存文件
 
 tun:
   enable: true
@@ -21,6 +22,8 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - 'login.cqu.edu.cn'
+  default-nameserver:
+    - 223.5.5.5
   nameserver-policy:
     'login.cqu.edu.cn': system
   nameserver:

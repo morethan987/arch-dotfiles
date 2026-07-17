@@ -14,34 +14,6 @@
       "args": ["acp"],
     },
   },
-  "cli_default_open_behavior": "new_window",
-  "outline_panel": {
-    "dock": "left",
-  },
-  "collaboration_panel": {
-    "dock": "left",
-  },
-  "edit_predictions": {
-    "provider": "copilot",
-  },
-  "soft_wrap": "editor_width",
-  "which_key": {
-    "enabled": false,
-  },
-  "git_panel": {
-    "dock": "left",
-    "tree_view": false,
-  },
-  "colorize_brackets": true,
-  "window_decorations": "client",
-  "tabs": {
-    "file_icons": true,
-    "git_status": false,
-  },
-  "title_bar": {
-    "show_branch_status_icon": true,
-    "show_menus": false,
-  },
   "language_models": {
     "openai_compatible": {
       "Qwen3Coder": {
@@ -114,6 +86,34 @@
   "project_panel": {
     "dock": "left",
     "git_status_indicator": true,
+  },
+  "cli_default_open_behavior": "new_window",
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "edit_predictions": {
+    "provider": "copilot",
+  },
+  "soft_wrap": "editor_width",
+  "which_key": {
+    "enabled": false,
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": false,
+  },
+  "colorize_brackets": true,
+  "window_decorations": "client",
+  "tabs": {
+    "file_icons": true,
+    "git_status": false,
+  },
+  "title_bar": {
+    "show_branch_status_icon": true,
+    "show_menus": false,
   },
 
   // debugger
