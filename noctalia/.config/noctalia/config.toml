@@ -1,0 +1,206 @@
+[backdrop]
+enabled = true
+
+[bar.default]
+auto_hide = true
+center = [ "workspaces" ]
+end = [
+    "notifications",
+    "group:g1",
+    "common_spacer",
+    "sysmon",
+    "common_spacer",
+    "bluetooth",
+    "volume",
+    "tiny_spacer",
+    "brightness",
+    "tiny_spacer",
+    "battery",
+    "common_spacer",
+    "clock"
+]
+margin_ends = 0
+radius = 0
+reserve_space = false
+start = [ "pacman", "wallpaper", "small_spacer", "tray", "common_spacer", "group:g2" ]
+thickness = 30
+
+    [[bar.default.capsule_group]]
+    enabled = true
+    fill = "surface_variant"
+    id = "g1"
+    members = [ "network", "network_rx", "network_tx" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    enabled = true
+    fill = "surface_variant"
+    id = "g2"
+    members = [ "cpu", "ram" ]
+    opacity = 1.0
+    padding = 6.0
+
+[control_center.calendar]
+show_events_card = false
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = []
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget]
+
+[idle]
+behavior_order = [ "lock", "screen-off", "lock-and-suspend" ]
+pre_action_fade_seconds = 5
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = true
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = false
+    timeout = 900.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 660.0
+
+[location]
+address = "Chongqing,China"
+
+[lockscreen]
+blur_intensity = 0.79999998211860657
+
+[lockscreen_widgets]
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 70.0
+    box_width = 400.0
+    cx = 960.0
+    cy = 961.0
+    output = "eDP-1"
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_password_hint = true
+
+[nightlight]
+enabled = true
+
+[shell]
+font_family = "Maple Mono NF CN"
+
+    [shell.launcher]
+    categories = false
+    compact = true
+
+    [shell.screenshot]
+    directory = "/home/morethan/Pictures/Screenshots"
+
+[theme]
+builtin = "Catppuccin"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    enable_builtin_templates = false
+    enable_community_templates = false
+
+[wallpaper]
+directory = "/home/morethan/Pictures/wallpapers"
+
+    [wallpaper.default]
+    path = "/home/morethan/Pictures/wallpapers/cloud.png"
+
+    [wallpaper.last]
+    path = "/home/morethan/Pictures/wallpapers/cloud.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/morethan/Pictures/wallpapers/cloud.png"
+
+[widget.brightness.actions]
+scroll_down = "brightness-down 2%"
+scroll_up = "brightness-up 2%"
+
+[widget.clock]
+format = "{:%H:%M:%S}"
+
+[widget.common_spacer]
+type = "spacer"
+
+[widget.cpu]
+display = "text"
+
+[widget.launcher]
+enabled = false
+
+[widget.media]
+album_art_only = true
+
+[widget.network]
+show_label = false
+
+[widget.network_rx]
+display = "text"
+
+[widget.network_tx]
+display = "text"
+
+[widget.pacman]
+glyph = "pacman"
+tooltip = "packages update"
+type = "custom_button"
+
+    [widget.pacman.actions]
+    left = "exec alacritty -e ~/.config/scripts/pacman.sh"
+
+[widget.ram]
+display = "text"
+stat = "ram_pct"
+
+[widget.small_spacer]
+length = 15
+type = "spacer"
+
+[widget.sysmon]
+display = "text"
+stat = "disk_used_pct"
+
+    [widget.sysmon.actions]
+    left = "exec alacritty -e zsh -ic 'cd / && sudo ncdu --exclude /mnt/ --exclude-kernfs'"
+
+[widget.tiny_spacer]
+length = 10
+type = "spacer"
+
+[widget.volume.actions]
+scroll_down = "volume-down 2%"
+scroll_up = "volume-up 2%"

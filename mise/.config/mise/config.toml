@@ -10,6 +10,7 @@ prek = "latest"
 rust = {version = "latest", components = "rust-analyzer"}
 usage = "latest"
 zig = "master"
+"go:golang.org/x/tools/gopls" = "latest"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"

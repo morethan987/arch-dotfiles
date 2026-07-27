@@ -20,14 +20,12 @@
       "H": "editor::SelectToBeginningOfLine",
       "K": ["editor::SelectUpByLines", { "lines": 13 }],
       "J": ["editor::SelectDownByLines", { "lines": 13 }],
-      ";": "command_palette::Toggle",
       "shift-s": "vim::PushAddSurrounds",
     },
   },
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      ";": "command_palette::Toggle",
       "L": "editor::MoveToEndOfLine",
       "H": "editor::MoveToBeginningOfLine",
       "J": ["editor::MoveDownByLines", { "lines": 13 }],
@@ -39,7 +37,6 @@
   {
     "context": "Editor && vim_mode == helix_normal",
     "bindings": {
-      ";": "command_palette::Toggle",
       "alt-j": ["editor::MoveDownByLines", { "lines": 13 }],
       "alt-k": ["editor::MoveUpByLines", { "lines": 13 }],
       "ctrl-a": "editor::SelectAll",
@@ -75,7 +72,7 @@
   {
     "context": "Workspace",
     "bindings": {
-      "` `": "workspace::OpenInTerminal",
+      "~ ~": "workspace::OpenInTerminal",
     },
   },
   {
