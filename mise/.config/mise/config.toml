@@ -1,9 +1,12 @@
 [tools]
+"aqua:go-task/task" = "latest"
 uv = "latest"
 bun = "latest"
 gh = "latest"
 prek = "latest"
 usage = "latest"
+go = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"

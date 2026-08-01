@@ -1,13 +1,26 @@
-# [[language]]
-# name = "python"
-# language-servers = [ "basedpyright", "ruff" ]
-# auto-format = true
+[[language]]
+name = "python"
+language-servers = [ "basedpyright", "ruff" ]
+auto-format = true
+formatter = { command = "bash", args = ["-c", "ruff check --select I001 --fix - | ruff format -"] }
 
-# [language-server.ruff]
-# command = "ruff"
-# args = ["server"]
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.basedpyright.config.basedpyright.analysis]
+typeCheckingMode = "standard"
 
 [[language]]
 name = "markdown"
 language-servers = [ "markdown-oxide" ]
 
+[[language]]
+name = "go"
+language-servers = [ "gopls" ]
+
+[language-server.gopls]
+command = "gopls"
+args = ["-logfile=/tmp/gopls.log",  "serve"]
+[language-server.gopls.config]
+"ui.diagnostic.staticcheck" = true
