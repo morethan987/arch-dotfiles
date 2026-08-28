@@ -14,6 +14,10 @@ j = { j = "normal_mode" }
 bufferline = "multiple"
 line-number = "relative"
 mouse = false
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
 
 [editor.soft-wrap]
 enable = true

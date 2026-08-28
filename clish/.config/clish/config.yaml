@@ -1,0 +1,10 @@
+api: http://127.0.0.1:9090
+secret: ""
+output: table
+default-group: "🔰 选择节点"
+default-rounds: 5
+urls:
+  google: https://www.gstatic.com/generate_204
+  cloudflare: https://cp.cloudflare.com/generate_204
+  youtube: https://www.youtube.com/generate_204
+  github: https://github.com/robots.txt

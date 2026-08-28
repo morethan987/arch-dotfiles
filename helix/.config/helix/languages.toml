@@ -1,6 +1,6 @@
 [[language]]
 name = "python"
-language-servers = [ "basedpyright", "ruff" ]
+language-servers = [ "ty", "ruff" ]
 auto-format = true
 formatter = { command = "bash", args = ["-c", "ruff check --select I001 --fix - | ruff format -"] }
 
@@ -8,8 +8,9 @@ formatter = { command = "bash", args = ["-c", "ruff check --select I001 --fix - 
 command = "ruff"
 args = ["server"]
 
-[language-server.basedpyright.config.basedpyright.analysis]
-typeCheckingMode = "standard"
+[language-server.ty]
+command = "ty"
+args = ["server"]
 
 [[language]]
 name = "markdown"
