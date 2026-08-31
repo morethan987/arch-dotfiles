@@ -1,4 +1,6 @@
 # system
+alias seeu='systemctl --user poweroff'
+alias again='systemctl --user reboot'
 alias scu='systemctl --user'
 alias jcu='journalctl --user'
 alias whichcmd='ps -o cmd -p'
@@ -14,8 +16,3 @@ alias l='ls -CF'
 alias gpu='nvidia-smi'
 alias proxyoff='unset http_proxy https_proxy all_proxy HTTP_PROXY HTTPS_PROXY ALL_PROXY'
 alias proxyon='export http_proxy=http://127.0.0.1:51847 && export https_proxy=http://127.0.0.1:51847 && export all_proxy=socks5h://127.0.0.1:51848 && export HTTP_PROXY=http://127.0.0.1:51847 && export HTTPS_PROXY=http://127.0.0.1:51847 && export ALL_PROXY=socks5h://127.0.0.1:51848'
-
-# project
-alias cdkgr='cd ~/github/SynKGR'
-alias ackgr='source ~/github/SynKGR/.venv/bin/activate'
-
