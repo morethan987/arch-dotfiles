@@ -16,9 +16,9 @@ api.map('<Alt-k>', 'e');
 api.unmap('e');
 
 // 跳到左侧/右侧标签页
-api.map('<Alt-h>', 'E');
+api.map('gp', 'E');
 api.unmap('E');
-api.map('<Alt-l>', 'R');
+api.map('gn', 'R');
 api.unmap('R');
 
 // 关闭当前标签页
@@ -59,9 +59,11 @@ api.unmap('<Ctrl-o>');
 api.map('<Ctrl-i>', 'D')
 api.map('<Ctrl-o>', 'S')
 
-
 // insert mode exit
 api.imap('jj', '<Esc>');
+
+// select all in insert mode
+api.iunmap('<Ctrl-a>');
 
 // ==== 主题样式设置 ====
 
