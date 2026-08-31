@@ -1,3 +1,0 @@
-#!/bin/zsh
-
-cd / && sudo ncdu --exclude /mnt/ --exclude-kernfs
