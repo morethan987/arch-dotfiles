@@ -1,0 +1,21 @@
+shell:
+  command: zsh
+  finder_command: zsh
+
+style:
+  tag:
+    width_percentage: 10
+    min_width: 20
+  comment:
+    width_percentage: 60
+  snippet:
+    width_percentage: 30
+
+finder:
+  command: fzf
+  overrides: '--bind=alt-j:half-page-down,alt-k:half-page-up'
+  overrides_var: '--bind=alt-j:half-page-down,alt-k:half-page-up'
+
+cheats:
+  paths:
+    - /home/morethan/.config/navi/cheats

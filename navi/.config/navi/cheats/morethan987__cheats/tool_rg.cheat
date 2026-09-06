@@ -1,0 +1,65 @@
+% rg
+
+; rg = ripgrep: recursive search that respects .gitignore and skips
+; hidden/binary files by default. Line numbers are shown automatically.
+; Smart case is on by default: an all-lowercase pattern ignores case,
+; while any uppercase letter makes the match case-sensitive.
+
+# Search recursively for a regex pattern
+rg '<pattern>' <dir>
+
+# Force case-insensitive matching
+rg -i '<pattern>' <dir>
+
+# Match whole words only (no substring hits)
+rg -w '<pattern>' <dir>
+
+# Treat the pattern as a literal string (no regex magic)
+rg -F '<pattern>' <dir>
+
+# List only the files containing matches
+rg -l '<pattern>' <dir>
+
+# List files with NO matches
+rg --files-without-match '<pattern>' <dir>
+
+# Count matching lines per file
+rg -c '<pattern>' <dir>
+
+# Print only the matched parts, one per line
+rg -o '<pattern>' <dir>
+
+# Show lines that do NOT match
+rg -v '<pattern>' <dir>
+
+# Show matches with surrounding context lines
+rg -C <n> '<pattern>' <dir>
+
+# Only the first match in each file
+rg -m 1 '<pattern>' <dir>
+
+# Search only files matching a glob
+rg -g '<glob>' '<pattern>' <dir>
+
+# Skip files matching a glob
+rg -g '!<glob>' '<pattern>' <dir>
+
+# Search files of one language type (py, rs, ts, ...)
+rg -t <type> '<pattern>' <dir>
+
+# Search hidden files too
+rg --hidden '<pattern>' <dir>
+
+# Search everything: hidden files and gitignored ones
+rg -uu '<pattern>' <dir>
+
+# Replace matched text in the output (files stay untouched)
+rg '<pattern>' -r '<text>' <dir>
+
+# List all files rg would search
+rg --files <dir>
+
+$ dir: find . -maxdepth 3 \( -name .git -o -name node_modules \) -prune -o -type d -print | sed 's|^\./||' | sort --- --header 'Directory to search' --preview 'ls -A {} 2>/dev/null | head -n 30'
+$ glob: printf '%s\n' '*.py' '*.sh' '*.bash' '*.zsh' '*.js' '*.ts' '*.tsx' '*.jsx' '*.go' '*.rs' '*.c' '*.h' '*.cpp' '*.hpp' '*.java' '*.rb' '*.php' '*.md' '*.txt' '*.yaml' '*.yml' '*.json' '*.toml' '*.ini' '*.conf' '*.log' '*.html' '*.css' '*.csv' 'Makefile' 'Dockerfile' '*.service' --- --header 'Filename glob, e.g. *.py'
+$ type: rg --type-list | cut -d: -f1 --- --header 'File type (see rg --type-list)'
+$ n: printf '%s\n' 1 2 3 5 10 --- --header 'Context lines around each match'

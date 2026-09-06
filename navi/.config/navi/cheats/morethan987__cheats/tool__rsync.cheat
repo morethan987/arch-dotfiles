@@ -1,0 +1,69 @@
+% rsync
+
+; Trailing slash matters: "src/" copies the CONTENTS of src into dest,
+; while "src" would create dest/src. The snippets below use the first form.
+; Append -n to any snippet for a safe dry-run preview.
+
+# Sync a directory's contents locally (archive, verbose, human-readable sizes)
+rsync -avh <src>/ <dest>/
+
+# Preview what a sync would change (dry-run, writes nothing)
+rsync -avhn <src>/ <dest>/
+
+# Mirror: also delete anything at the destination that is gone from the source
+rsync -avh --delete <src>/ <dest>/
+
+# Transfer with progress bars and resume support for interrupted files
+rsync -avhP <src>/ <dest>/
+
+# Copy selected files into a directory
+rsync -avh <files> <dest>/
+
+# Push a directory to a remote machine over SSH
+rsync -avh -e ssh <src>/ <remote>:<dest>/
+
+# Pull a directory from a remote machine over SSH
+rsync -avh -e ssh <remote>:<src>/ <dest>/
+
+# Push over SSH on a non-standard port
+rsync -avh -e "ssh -p <port>" <src>/ <remote>:<dest>/
+
+# Compress file data during transfer (helps on slow links, pointless on LAN)
+rsync -avhz <src>/ <dest>/
+
+# Never overwrite files that already exist at the destination
+rsync -avh --ignore-existing <src>/ <dest>/
+
+# Exclude paths matching a pattern (flag is repeatable)
+rsync -avh --exclude='<pattern>' <src>/ <dest>/
+
+# Transfer only paths matching a pattern
+rsync -avh --include='<pattern>' --include='*/' --exclude='*' <src>/ <dest>/
+
+# Itemize every change (per-file >f+++++++++ style deltas)
+rsync -avhi <src>/ <dest>/
+
+# Throttle transfer rate (KiBytes per second)
+rsync -avh --bwlimit=<kbps> <src>/ <dest>/
+
+# Move: remove each source file once it is safely at the destination
+rsync -avh --remove-source-files <src>/ <dest>/
+
+# Mirror but keep overwritten/deleted files in a backup folder
+rsync -avh --delete --backup --backup-dir='<backup_dir>' <src>/ <dest>/
+
+# Space-efficient incremental snapshot (hardlink unchanged files to a previous one)
+rsync -a --delete --link-dest='<prev_snapshot>' <src>/ <dest>/
+
+# Detect changes by checksum instead of size+mtime (slow, catches silent corruption)
+rsync -avhc <src>/ <dest>/
+
+$ src: find . -maxdepth 3 \( -name .git -o -name node_modules \) -prune -o -type d -print | sed 's|^\./||' | sort --- --header 'Source directory (its contents get synced)' --preview 'ls -A {} 2>/dev/null | head -n 30'
+$ dest: find . -maxdepth 3 \( -name .git -o -name node_modules \) -prune -o -type d -print | sed 's|^\./||' | sort --- --header 'Destination directory (type any path)' --preview 'ls -A {} 2>/dev/null | head -n 30'
+$ files: find . -maxdepth 4 -type f -not -path '*/.git/*' -not -path '*/node_modules/*' | sed 's|^\./||' | sort --- --multi --expand --header 'Pick files with TAB, then Enter' --preview 'head -c 600 {} 2>/dev/null'
+$ remote: sed -nE 's/^[[:space:]]*[Hh]ost[[:space:]]+//p' ~/.ssh/config 2>/dev/null | tr '[:space:]' '\n' | grep -v '[*?]' | sort -u --- --header 'SSH alias from ~/.ssh/config, or type user@host'
+$ port: echo 22 2222 2200 8022 9000 | tr ' ' '\n' --- --header 'Remote SSH port'
+$ pattern: printf '%s\n' '*.log' '*.tmp' '*.bak' '*.swp' 'node_modules' '.cache' '.git' '__pycache__' 'target' 'dist' '.venv' 'Thumbs.db' '.DS_Store' --- --header 'Glob pattern to match'
+$ kbps: echo 100 500 1000 5000 10000 50000 | tr ' ' '\n' --- --header 'Transfer limit in KiB/s'
+$ backup_dir: ls -d */ 2>/dev/null --- --header 'Folder to keep overwritten/deleted files'
+$ prev_snapshot: ls -d */ 2>/dev/null | sed 's|^|../|' --- --header 'Earlier snapshot (sibling of the destination, e.g. ../snap1)'

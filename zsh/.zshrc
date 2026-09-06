@@ -78,8 +78,13 @@ fi
 if command -v fzf &> /dev/null; then
   source <(fzf --zsh)
   export FZF_DEFAULT_OPTS='
-    --bind=alt-j:down,alt-k:up
+    --bind=alt-j:half-page-down,alt-k:half-page-up
   '
+fi
+
+# ====== navi ======
+if command -v navi >/dev/null 2>&1; then
+  eval "$(navi widget zsh)"
 fi
 
 # ====== mise ======
