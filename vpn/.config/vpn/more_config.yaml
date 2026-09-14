@@ -22,6 +22,9 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - 'login.cqu.edu.cn'
+    - 'connect.rom.miui.com'
+    - 'wifi.vivo.com.cn'
+    - 'www.qualcomm.cn'
   default-nameserver:
     - 223.5.5.5
   nameserver-policy:
