@@ -4,6 +4,24 @@ language-servers = [ "ty", "ruff" ]
 auto-format = true
 formatter = { command = "bash", args = ["-c", "ruff check --select I001 --fix - | ruff format -"] }
 
+[language.debugger]
+name = "debugpy"
+transport = "stdio"
+command = "setsid"
+args = ["uv", "run", "python", "-m", "debugpy.adapter"]
+
+[[language.debugger.templates]]
+name = "launch:default"
+request = "launch"
+completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
+args = { mode = "debug", program = "{0}" }
+
+[[language.debugger.templates]]
+name = "attach"
+request = "attach"
+completion = []
+args = {}
+
 [language-server.ruff]
 command = "ruff"
 args = ["server"]
@@ -25,3 +43,7 @@ command = "gopls"
 args = ["-logfile=/tmp/gopls.log",  "serve"]
 [language-server.gopls.config]
 "ui.diagnostic.staticcheck" = true
+
+
+[language-server.tinymist.config]
+formatterPrintWidth = 200

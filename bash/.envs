@@ -1,3 +1,5 @@
+export EDITOR=hx
+
 # fix terminal entry not found
 export TERM=xterm-256color
 export COLORTERM=truecolor
@@ -10,5 +12,5 @@ export HF_ENDPOINT=https://hf-mirror.com
 
 # uv
 export UV_INSTALLER_GHE_BASE_URL=https://ghproxy.cn/https://github.com
-export UV_PYTHON_INSTALL_MIRROR=https://ghproxy.cn/https://github.com/indygreg/python-build-standalone/releases/download
+export UV_PYTHON_INSTALL_MIRROR=https://mirror.nju.edu.cn/github-release/astral-sh/python-build-standalone
 export UV_DEFAULT_INDEX=https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple

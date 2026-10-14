@@ -1,0 +1,10 @@
+[Unit]
+Description=cauth campus network daemon
+
+[Service]
+ExecStart=/home/morethan/.local/bin/cauth daemon
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target
