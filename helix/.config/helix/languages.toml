@@ -2,7 +2,6 @@
 name = "python"
 language-servers = [ "ty", "ruff" ]
 auto-format = true
-formatter = { command = "bash", args = ["-c", "ruff check --select I001 --fix - | ruff format -"] }
 
 [language.debugger]
 name = "debugpy"

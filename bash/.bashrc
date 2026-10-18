@@ -116,3 +116,20 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# zoxide
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+
+# fzf
+if command -v fzf &> /dev/null; then
+  source <(fzf --zsh)
+  export FZF_DEFAULT_OPTS='
+    --bind=alt-j:half-page-down,alt-k:half-page-up
+  '
+fi
+
+# mise
+if command -v mise &> /dev/null && [[ $EUID -ne 0 ]]; then
+  eval "$(mise activate zsh --shims)"
+fi
