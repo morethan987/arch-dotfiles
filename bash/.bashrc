@@ -118,7 +118,7 @@ fi
 
 # mise
 if command -v mise &> /dev/null && [[ $EUID -ne 0 ]]; then
-  eval "$(mise activate bash --shims)"
+  eval "$(mise activate bash)"
 fi
 
 # zoxide
