@@ -39,8 +39,6 @@
     "bindings": {
       "alt-j": ["editor::MoveDownByLines", { "lines": 13 }],
       "alt-k": ["editor::MoveUpByLines", { "lines": 13 }],
-      "ctrl-a": "editor::SelectAll",
-      "g .": "editor::ToggleCodeActions",
     },
   },
   {

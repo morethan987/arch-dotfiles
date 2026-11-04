@@ -23,9 +23,9 @@
       "enable_thinking": true,
       "effort": "high",
       "provider": "deepseek",
-      "model": "deepseek-v4-flash",
+      "model": "deepseek-flash",
     },
-    "default_profile": "ask",
+    "default_profile": "write",
   },
   "icon_theme": "Catppuccin Latte",
   "ui_font_size": 16.5,
@@ -95,50 +95,38 @@
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/data/yitingting/.config"
-          ]
+          "paths": ["/data/yitingting/.config"],
         },
         {
-          "paths": [
-            "/data/yitingting/github/SimKGC"
-          ]
+          "paths": ["/data/yitingting/github/SimKGC"],
         },
         {
-          "paths": [
-            "/data/yitingting/github/SynKGR"
-          ]
+          "paths": ["/data/yitingting/github/SynKGR"],
         },
         {
-          "paths": [
-            "/home/morethan/github/SWE-CI"
-          ]
-        }
-      ]
+          "paths": ["/home/morethan/github/SWE-CI"],
+        },
+      ],
     },
     {
       "host": "cs336",
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/root/cs336/assignment1-basics"
-          ]
-        }
+          "paths": ["/root/cs336/assignment1-basics"],
+        },
       ],
-      "upload_binary_over_ssh": true
+      "upload_binary_over_ssh": true,
     },
     {
       "host": "home",
       "args": [],
       "projects": [
         {
-          "paths": [
-            "/home/morethan/github/cs336-assignment1-basics"
-          ]
-        }
-      ]
-    }
+          "paths": ["/home/morethan/github/cs336-assignment1-basics"],
+        },
+      ],
+    },
   ],
 
   // language server
@@ -147,7 +135,15 @@
       "show_edit_predictions": false,
     },
     "Python": {
-      "language_servers": ["ty", "ruff"]
-    }
+      "language_servers": ["ty", "ruff"],
+    },
+    "Typst": {
+      "language_servers": ["tinymist"],
+    },
+  },
+  "lsp": {
+    "tinymist": {
+      "settings": { "projectResolution": "lockDatabase" },
+    },
   },
 }

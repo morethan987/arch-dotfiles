@@ -4,10 +4,10 @@
 
 cd
 # update and upgrade
-sudo apt update && sudo apt upgrade
+apt update && apt upgrade
 
 # basic software
-sudo apt install tree stow less
+apt -y --no-upgrade install tree stow less rsync netcat-openbsd
 
 # proxy
 export http_proxy=http://127.0.0.1:51847
@@ -37,6 +37,9 @@ ln -sf ~/.local/share/helix/hx ~/.local/bin/hx
 ln -sfn ~/.local/share/helix/runtime ~/.config/helix/runtime
 hx --version
 
+git config --global user.email "2404385626@qq.com"
+git config --global user.name "morethan987"
+
 # github cli
 (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 	&& mkdir -p -m 755 /etc/apt/keyrings \
@@ -50,8 +53,17 @@ hx --version
 gh --version
 gh auth login
 
-git config --global user.email "2404385626@qq.com"
-git config --global user.name "morethan987"
+# or generate ssh key by yourself
+# name your file as github
+ssh-keygen -t rsa -b 4096 -C "2404385626@qq.com"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/github
+cat >> ~/.ssh/config <<'EOF'
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github
+EOF
 
 cd
 # install pueue
@@ -59,6 +71,20 @@ curl -fsSL https://github.com/Nukesor/pueue/releases/latest/download/pueue-x86_6
 chmod +x .local/bin/pueue
 curl -fsSL https://github.com/Nukesor/pueue/releases/latest/download/pueued-x86_64-unknown-linux-musl -o .local/bin/pueued
 chmod +x .local/bin/pueued
+
+# install zoxide
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+
+# install fzf
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+# install mise
+curl -fsSL https://mise.run | sh
+
+# fix /etc/environment not loaded
+# usually caused by docker container
+sudo sh -c 'echo "set -a; [ -f /etc/environment ] && . /etc/environment; set +a" > /etc/profile.d/load_env.sh'
 
 # install omp
 curl -fsSL https://omp.sh/install | sh

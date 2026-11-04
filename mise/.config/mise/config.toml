@@ -4,13 +4,12 @@ bun = "latest"
 gh = "latest"
 go = "latest"
 hugo = "latest"
-java = "21"
-maven = "latest"
-prek = "latest"
 rust = {version = "latest", components = "rust-analyzer"}
 usage = "latest"
 zig = "master"
 "go:golang.org/x/tools/gopls" = "latest"
+java = "temurin-21"
+android-sdk = "latest"
 
 [tools."github:can1357/oh-my-pi"]
 version = "latest"

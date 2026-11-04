@@ -1,22 +1,101 @@
 #!/bin/zsh
 
-wifi_state=$(nmcli radio wifi)
-wifi_dev=$(nmcli device status | awk '/wifi/ && /connected/ {print $1}' | head -n1)
-eth_state=$(nmcli device status | awk '/ethernet/ {print $3}' | head -n1)
-eth_dev=$(nmcli device status | awk '/ethernet/ {print $1}' | head -n1)
+# 主/备 metric 差距必须 > 20000：NM 对"连通性检测失败"的口会在实际下发路由时
+# +20000 惩罚（mihomo fake-ip 劫持检测域名会触发），间距够大排序就不会被翻转
+PRI=100
+SEC=50000
 
-# 当 Wi-Fi 和以太网都启用时，优先关闭以太网
-if [[ "$wifi_state" == "enabled" && "$eth_state" == "已连接" ]]; then
-    echo "󰈀 Both Wi-Fi and Ethernet are active — turning off Ethernet..."
-    nmcli device disconnect "$eth_dev" >/dev/null 2>&1
+# 1. 自动获取物理网卡名称
+eth_dev=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2=="ethernet"{print $1; exit}')
+wifi_dev=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2=="wifi"{print $1; exit}')
 
-elif [[ "$wifi_state" == "enabled" ]]; then
-    echo "󰈀 Switching to Ethernet..."
-    nmcli radio wifi off
-    nmcli device connect "$eth_dev" >/dev/null 2>&1
+# 2. 获取当前设备状态
+# 说明: 网线未插时，以太网状态通常为 "unavailable"
+eth_state=$(nmcli -t -f DEVICE,STATE device | awk -F: -v dev="$eth_dev" '$1==dev{print $2}')
+wifi_state=$(nmcli -t -f DEVICE,STATE device | awk -F: -v dev="$wifi_dev" '$1==dev{print $2}')
+
+# 辅助：活动连接名（按设备反查，不怕连接名里带冒号）
+active_con() { nmcli -g GENERAL.CONNECTION device show "$1" 2>/dev/null }
+
+# 辅助：profile 持久化的 metric（空/0=auto 归一为 10000，仅用于判断当前谁是主）
+profile_metric() {
+    local m=$(nmcli -g ipv4.route-metric connection show "$1" 2>/dev/null)
+    [[ -n "$m" && "$m" != "0" ]] && echo "$m" || echo 10000
+}
+
+# 辅助：内核当前默认路由 metric（无默认路由按 999999 计）
+live_metric() {
+    local m=$(ip -4 route show default dev "$1" 2>/dev/null | awk '{for(i=1;i<NF;i++) if($i=="metric"){print $(i+1); exit}}')
+    echo "${m:-999999}"
+}
+
+# 辅助函数：调整两者的路由优先级 (不断网软切换)
+# reapply 返回后 DHCP 续约有 ~百毫秒尾部，0.1s 步进等排序生效即返回（上限 3s）
+set_metric() {
+    local pri_dev="$1" sec_dev="$2"
+    local pri_con=$(active_con "$pri_dev") sec_con=$(active_con "$sec_dev")
+    # 主网卡 metric 设为 PRI (低数值优先级高)，备用设为 SEC
+    [[ -n "$pri_con" ]] && nmcli connection modify "$pri_con" ipv4.route-metric $PRI && nmcli device reapply "$pri_dev" >/dev/null 2>&1
+    [[ -n "$sec_con" ]] && nmcli connection modify "$sec_con" ipv4.route-metric $SEC && nmcli device reapply "$sec_dev" >/dev/null 2>&1
+    local pm sm i
+    for ((i=0; i<30; i++)); do
+        pm=$(live_metric "$pri_dev"); sm=$(live_metric "$sec_dev")
+        (( pm < sm )) && break
+        sleep 0.1
+    done
+}
+
+# ----------------- 核心业务逻辑 -----------------
+
+# 情况一：双网均已在线 -> 仅对调路由优先级（平滑切换）
+if [[ "$eth_state" == "connected" && "$wifi_state" == "connected" ]]; then
+    # 对调方向看 profile 持久值；不能看内核实时值，会被 +20000 惩罚污染
+    eth_pm=$(profile_metric "$(active_con "$eth_dev")")
+    wifi_pm=$(profile_metric "$(active_con "$wifi_dev")")
+
+    if (( eth_pm <= wifi_pm )); then
+        set_metric "$wifi_dev" "$eth_dev"
+        echo "[网络优先级切换] 󰤢 已切换为 Wi-Fi 优先 (eth=$(live_metric "$eth_dev") / wifi=$(live_metric "$wifi_dev"))"
+    else
+        set_metric "$eth_dev" "$wifi_dev"
+        echo "[网络优先级切换] 󰈀 已切换为以太网优先 (eth=$(live_metric "$eth_dev") / wifi=$(live_metric "$wifi_dev"))"
+    fi
+
+# 情况二：当前仅 Wi-Fi 在线
+elif [[ "$wifi_state" == "connected" ]]; then
+    # 探测网线是否物理插入
+    if [[ "$eth_state" == "unavailable" ]]; then
+        echo "[切换已拦截] 未插网线，保持当前 Wi-Fi 连接"
+    else
+        echo "[正在连接以太网] 检测到网线已接入，正在跃迁至双网状态..."
+        nmcli device connect "$eth_dev" >/dev/null 2>&1
+        set_metric "$eth_dev" "$wifi_dev"
+        echo "[双网已激活] 󰈀 已连入以太网，并设为主路由 (eth=$(live_metric "$eth_dev") / wifi=$(live_metric "$wifi_dev"))"
+    fi
+
+# 情况三：当前仅以太网在线
+elif [[ "$eth_state" == "connected" ]]; then
+    echo "[正在搜索 Wi-Fi] 正在开启无线并尝试连接已知网络..."
+    nmcli radio wifi on
+
+    # 0.2s 间隔轮询（上限 5s），连上已知 Wi-Fi 立即继续
+    wifi_connected=0
+    for ((i=0; i<25; i++)); do
+        sleep 0.2
+        current_wifi_state=$(nmcli -t -f DEVICE,STATE device | awk -F: -v dev="$wifi_dev" '$1==dev{print $2}')
+        if [[ "$current_wifi_state" == "connected" ]]; then
+            wifi_connected=1
+            break
+        fi
+    done
+
+    if (( wifi_connected == 1 )); then
+        set_metric "$wifi_dev" "$eth_dev"
+        echo "[双网已激活] 󰤢 Wi-Fi 已连接，并已设为主路由 (eth=$(live_metric "$eth_dev") / wifi=$(live_metric "$wifi_dev"))"
+    else
+        echo "[切换告警] 附近未发现已保存的可用 Wi-Fi，保持以太网连接"
+    fi
 
 else
-    echo "󰤢 Switching to Wi-Fi..."
-    nmcli device disconnect "$eth_dev" >/dev/null 2>&1
-    nmcli radio wifi on
+    echo "[网络状态] 当前未发现可用网络连接"
 fi

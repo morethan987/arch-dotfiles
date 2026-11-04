@@ -1,0 +1,10 @@
+[Unit]
+Description=Airpipe daemon (LAN clipboard & file sync)
+
+[Service]
+ExecStart=%h/.local/bin/ap daemon
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target
