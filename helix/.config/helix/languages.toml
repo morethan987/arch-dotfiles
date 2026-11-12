@@ -43,6 +43,13 @@ args = ["-logfile=/tmp/gopls.log",  "serve"]
 [language-server.gopls.config]
 "ui.diagnostic.staticcheck" = true
 
+[[language]]
+name = "typst"
+language-servers = ["tinymist"]
+
+[language-server.tinymist]
+command = "tinymist"
 
 [language-server.tinymist.config]
+projectResolution = "lockDatabase"
 formatterPrintWidth = 200

@@ -9,10 +9,11 @@ tun:
   auto-detect-interface: true
   strict-route: true
   gso: false
-  skip-proxy:
-    - 10.100.0.0/24
-    - 127.0.0.1/8
-    - 'localhost'
+  route-exclude-address:
+    - 10.0.0.0/8
+    - 127.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
 
 dns:
   enable: true
@@ -22,24 +23,18 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - 'login.cqu.edu.cn'
+    - '+.cslcqu.cn'
     - 'connect.rom.miui.com'
     - 'wifi.vivo.com.cn'
     - 'www.qualcomm.cn'
   default-nameserver:
     - 223.5.5.5
   nameserver-policy:
-    'login.cqu.edu.cn': system
+    '+.cqu.edu.cn': 202.202.2.50
+    '+.cslcqu.cn': 202.202.2.50
   nameserver:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
-  fallback:
-    - tls://8.8.4.4
-    - tls://1.1.1.1
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
 
 proxies:
   - {name: "校园网出口", type: socks5, server: 10.100.0.2, port: 1080, interface-name: wg0}

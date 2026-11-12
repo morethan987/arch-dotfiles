@@ -1,16 +1,20 @@
 [global]
-  default = "a6000"
+  default = "smolvla1"
   remote_port = 7890
   local_port = 7890
   ssh_options = ["ServerAliveInterval=60", "ExitOnForwardFailure=yes"]
 
 [servers]
-  [servers.a6000]
+  [servers.smolvla1]
+    remote_port = 51847
+    local_port = 0
+  [servers.smolvla2]
+    remote_port = 51847
+    local_port = 0
+  [servers.wn-a100]
     remote_port = 51847
     local_port = 0
   [servers.cs336]
     remote_port = 51847
     local_port = 0
-  [servers.jump-campus]
-    remote_port = 7890
-    local_port = 0
+
