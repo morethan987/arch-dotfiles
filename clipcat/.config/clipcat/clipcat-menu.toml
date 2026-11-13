@@ -1,0 +1,70 @@
+# Server endpoint
+# The `clipcat-menu` connects to the server via a Unix domain socket if `server_endpoint` is a file path, such as:
+# "/run/user/<user-id>/clipcat/grpc.sock".
+# It connects via HTTP if `server_endpoint` is a URL, like: "http://127.0.0.1:45045".
+server_endpoint = "/run/user/1000/clipcat/grpc.sock"
+
+# The default finder to invoke when no "--finder=<finder>" option is provided.
+finder = "custom"
+
+[log]
+# Emit log messages to a log file.
+# Delete this line to disable logging to a file.
+# file_path = "/path/to/log/file"
+# Emit log messages to systemd-journald.
+emit_journald = true
+# Emit log messages to stdout.
+emit_stdout = false
+# Emit log messages to stderr.
+emit_stderr = false
+# Log level.
+level = "INFO"
+
+# Options for "rofi".
+# [rofi]
+# Length of line.
+# line_length = 100
+# Length of menu.
+# menu_length = 30
+# Prompt for the menu.
+# menu_prompt = "Clipcat"
+# Extra arguments to pass to `rofi`.
+# extra_arguments = ["-mesg", "Please select a clip"]
+
+# Options for "dmenu".
+# [dmenu]
+# Length of line.
+# line_length = 100
+# Length of menu.
+# menu_length = 30
+# Prompt for the menu.
+# menu_prompt = "Clipcat"
+# Extra arguments to pass to `dmenu`.
+# extra_arguments = [
+#   "-fn",
+#   "SauceCodePro Nerd Font Mono-12",
+#   "-nb",
+#   "#282828",
+#   "-nf",
+#   "#ebdbb2",
+#   "-sb",
+#   "#d3869b",
+#   "-sf",
+#   "#282828",
+# ]
+
+# Customize your finder.
+[custom_finder]
+# External program name.
+program = "fzf"
+# Arguments for calling the external program.
+args = [
+  "--ansi",
+  "--border=rounded",
+  "--prompt", "  Clipcat > ",
+  "--height", "60%",
+  "--layout=reverse",
+  "--color=bg:#282a36,fg:#f8f8f2,hl:#ffb86c,fg+:#50fa7b,bg+:#44475a,hl+:#ffb86c,info:#8be9fd,prompt:#ff79c6,spinner:#bd93f9,pointer:#ff79c6,marker:#bd93f9,header:#6272a4",
+  "--preview-window", "up:60%",
+]
+

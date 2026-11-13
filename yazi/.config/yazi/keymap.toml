@@ -1,2 +1,66 @@
-# key map
+[mgr]
+prepend_keymap = [
+    { on = "x", run = [ "toggle", "arrow 1", ], desc = "Select line" },
+    { on = "X", run = "yank --cut", desc = "Cut selected files" },
 
+    # select all and invert selection
+    { on = "%", run = "toggle_all --state=on", desc = "Select all" },
+    { on = "<A-%>", run = "toggle_all", desc = "Invert selection" },
+
+    # collapse selection
+    { on = ";", run = "escape", desc = "Collapse selection" },
+
+    # ge to the bottom and gg to the top
+    { on = [ "g", "e", ], run = "arrow bot", desc = "Go to bottom" },
+    { on = [ "g", "g", ], run = "arrow top", desc = "Go to top" },
+    { on = [ "g", "s", ], run = "cd ~/Pictures/Screenshots", desc = "Go to ~/Pictures/Screenshots" },
+    { on = [ "g", "p", ], run = "tab_switch -1 --relative", desc = "Previous Tab" },
+    { on = [ "g", "n", ], run = "tab_switch 1 --relative", desc = "Next Tab" },
+
+    # move down or up half page
+    { on = "<A-j>", run = "arrow 50%", desc = "Page half down" },
+    { on = "<A-k>", run = "arrow -50%", desc = "Page half up" },
+
+    # rename
+    { on = "c", run = "rename --cursor=before_ext", desc = "Rename" },
+
+    # file picker
+    { on = [ "<Space>", "f", ], run = "plugin fzf", desc = "File picker (fzf)" },
+
+    # global search content
+    { on = [ "<Space>", "/", ], run = "search --via=rg", desc = "Content search (ripgrep)" },
+
+    # file name search
+    { on = [ "<Space>", "s", ], run = "search --via=fd", desc = "Search by file name (fd)" },
+
+    # zoxide
+    { on = [ "<Space>", "z", ], run = "plugin zoxide", desc = "Jump to directory (zoxide)" },
+
+    # tab
+    { on = [ "<Space>", "b", "n", ], run = "tab_create --current", desc = "New buffer" },
+    { on = [ "<Space>", "b", "c", ], run = "close", desc = "Buffer close" },
+    { on = [ "<Space>", "b", "r", ], run = "tab_rename --interactive", desc = "Buffer rename" },
+
+    # copy and paste
+    { on = [ "<Space>", "y", ], run = 'shell -- for p in %s; do echo "file://$p"; done | wl-copy -t text/uri-list', desc = "GUI copy" },
+    { on = [ "<Space>", "p", ], run = 'shell -- wl-paste | while read -r f; do cp -r "${f#file://}" ./; done', desc = "GUI paste" },
+    { on = [ "<Space>", "P", ], run = 'shell -- wl-paste > "$(date +%Y%m%d_%H%M%S).png"', desc = "GUI pase image" },
+
+    # path copy
+    { on = [ "y", "p", ], run = "copy path", desc = "Copy absolute file path" },
+    { on = [ "y", "f", ], run = "copy filename", desc = "Copy file name" },
+    { on = [ "y", "d", ], run = "copy dirpath", desc = "Copy directory" },
+    { on = [ "y", "n", ], run = "copy name_without_ext", desc = "Copy file without extention" },
+
+    { on = [ "y", "y", ], run = "yank", desc = "Yank files" },
+    { on = "X", run = "yank --cut", desc = "Cut files" },
+    { on = "p", run = "paste", desc = "Paste files" },
+    { on = "P", run = "paste --force", desc = "Force paste files" },
+    { on = "Y", run = "unyank", desc = "Cancel yank" },
+
+    # spot
+    { on = [ "<Space>", "k", ], run = "spot", desc = "Hover/Spot" },
+
+    # tasks
+    { on = [ "<Space>", "t", ], run = "tasks:show", desc = "Tasks" },
+]

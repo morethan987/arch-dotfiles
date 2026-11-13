@@ -1,0 +1,359 @@
+#compdef ap
+
+autoload -U is-at-least
+
+_ap() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_ap_commands" \
+"*::: :->ap" \
+&& ret=0
+    case $state in
+    (ap)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:ap-command-$line[1]:"
+        case $line[1] in
+            (daemon)
+_arguments "${_arguments_options[@]}" : \
+'--port=[]:PORT:_default' \
+'--no-tray[]' \
+'-v[]' \
+'--verbose[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(pair)
+_arguments "${_arguments_options[@]}" : \
+'--timeout=[]:TIMEOUT:_default' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(devices)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(unpair)
+_arguments "${_arguments_options[@]}" : \
+'--all[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'::name:_default' \
+&& ret=0
+;;
+(send)
+_arguments "${_arguments_options[@]}" : \
+'-c[]' \
+'--clipboard[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'*::paths:_files' \
+&& ret=0
+;;
+(text)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'::text:_default' \
+&& ret=0
+;;
+(log)
+_arguments "${_arguments_options[@]}" : \
+'-f[]' \
+'--follow[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+'--edit[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+':shell:(bash elvish fish powershell zsh)' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_ap__subcmd__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:ap-help-command-$line[1]:"
+        case $line[1] in
+            (daemon)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(status)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(pair)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(devices)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(unpair)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(send)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(text)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(log)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(stop)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(version)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(completions)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_ap_commands] )) ||
+_ap_commands() {
+    local commands; commands=(
+'daemon:start the daemon (foreground; systemd owns autostart)' \
+'status:daemon status' \
+'pair:open a pairing window and wait for the phone' \
+'devices:list paired devices' \
+'unpair:remove a pairing by name (or --all)' \
+'send:send files/dirs (\`-\` = stdin); \`--clipboard\` sends the files copied in the clipboard (tray equivalent)' \
+'text:push text to the phone (reads stdin without an argument)' \
+'log:follow daemon logs (journalctl)' \
+'stop:gracefully stop the daemon' \
+'config:show effective config / open editor' \
+'version:version info' \
+'completions:Generate shell completion scripts' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'ap commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__completions_commands] )) ||
+_ap__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap completions commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__config_commands] )) ||
+_ap__subcmd__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap config commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__daemon_commands] )) ||
+_ap__subcmd__daemon_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap daemon commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__devices_commands] )) ||
+_ap__subcmd__devices_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap devices commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help_commands] )) ||
+_ap__subcmd__help_commands() {
+    local commands; commands=(
+'daemon:start the daemon (foreground; systemd owns autostart)' \
+'status:daemon status' \
+'pair:open a pairing window and wait for the phone' \
+'devices:list paired devices' \
+'unpair:remove a pairing by name (or --all)' \
+'send:send files/dirs (\`-\` = stdin); \`--clipboard\` sends the files copied in the clipboard (tray equivalent)' \
+'text:push text to the phone (reads stdin without an argument)' \
+'log:follow daemon logs (journalctl)' \
+'stop:gracefully stop the daemon' \
+'config:show effective config / open editor' \
+'version:version info' \
+'completions:Generate shell completion scripts' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'ap help commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__completions_commands] )) ||
+_ap__subcmd__help__subcmd__completions_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help completions commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__config_commands] )) ||
+_ap__subcmd__help__subcmd__config_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help config commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__daemon_commands] )) ||
+_ap__subcmd__help__subcmd__daemon_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help daemon commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__devices_commands] )) ||
+_ap__subcmd__help__subcmd__devices_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help devices commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__help_commands] )) ||
+_ap__subcmd__help__subcmd__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help help commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__log_commands] )) ||
+_ap__subcmd__help__subcmd__log_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help log commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__pair_commands] )) ||
+_ap__subcmd__help__subcmd__pair_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help pair commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__send_commands] )) ||
+_ap__subcmd__help__subcmd__send_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help send commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__status_commands] )) ||
+_ap__subcmd__help__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help status commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__stop_commands] )) ||
+_ap__subcmd__help__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help stop commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__text_commands] )) ||
+_ap__subcmd__help__subcmd__text_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help text commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__unpair_commands] )) ||
+_ap__subcmd__help__subcmd__unpair_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help unpair commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__help__subcmd__version_commands] )) ||
+_ap__subcmd__help__subcmd__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap help version commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__log_commands] )) ||
+_ap__subcmd__log_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap log commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__pair_commands] )) ||
+_ap__subcmd__pair_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap pair commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__send_commands] )) ||
+_ap__subcmd__send_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap send commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__status_commands] )) ||
+_ap__subcmd__status_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap status commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__stop_commands] )) ||
+_ap__subcmd__stop_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap stop commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__text_commands] )) ||
+_ap__subcmd__text_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap text commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__unpair_commands] )) ||
+_ap__subcmd__unpair_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap unpair commands' commands "$@"
+}
+(( $+functions[_ap__subcmd__version_commands] )) ||
+_ap__subcmd__version_commands() {
+    local commands; commands=()
+    _describe -t commands 'ap version commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_ap" ]; then
+    _ap "$@"
+else
+    compdef _ap ap
+fi

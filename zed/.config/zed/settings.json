@@ -91,29 +91,21 @@
   // remote dev
   "ssh_connections": [
     {
-      "host": "a6000",
-      "args": [],
-      "projects": [
-        {
-          "paths": ["/data/yitingting/.config"],
-        },
-        {
-          "paths": ["/data/yitingting/github/SimKGC"],
-        },
-        {
-          "paths": ["/data/yitingting/github/SynKGR"],
-        },
-        {
-          "paths": ["/home/morethan/github/SWE-CI"],
-        },
-      ],
-    },
-    {
       "host": "cs336",
       "args": [],
       "projects": [
         {
           "paths": ["/root/cs336/assignment1-basics"],
+        },
+      ],
+      "upload_binary_over_ssh": true,
+    },
+    {
+      "host": "wn-a100",
+      "args": [],
+      "projects": [
+        {
+          "paths": ["/home/mr/github/eai-from-scratch"],
         },
       ],
       "upload_binary_over_ssh": true,
